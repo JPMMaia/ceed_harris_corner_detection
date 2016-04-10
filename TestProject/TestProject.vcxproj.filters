@@ -13,33 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Application">
-      <UniqueIdentifier>{d9bbd6c3-9cea-4a8c-a5d5-7faff8dbe27d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\IO.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MatlabUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.c">
-      <Filter>Application</Filter>
-    </ClCompile>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\IO.h">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MatlabUtils.hpp">
+    </ClCompile>
+    <ClCompile Include="HarrisTester.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Application</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
