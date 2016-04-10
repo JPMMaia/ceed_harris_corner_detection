@@ -1,4 +1,4 @@
-
+pkg load image
 
 %im = imread('Harris_Detector_Original_Image.jpg');
 im = imread('plane.jpg');
@@ -17,6 +17,9 @@ radius=3;
 
 figure;
 imshow(cim);
+
+save -text originalImage.txt im
+save -text outputImage.txt cim
 
 %imout = im;
 %imout(cim == 1) = 255;
