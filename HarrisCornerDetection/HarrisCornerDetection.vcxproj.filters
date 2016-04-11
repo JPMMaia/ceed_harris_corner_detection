@@ -23,13 +23,13 @@
     <ClCompile Include="Source\MatlabUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Image.cpp">
+    <ClCompile Include="Source\FileStream.c">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FileStream.cpp">
+    <ClCompile Include="Source\Harris.c">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Harris.cpp">
+    <ClCompile Include="Source\Image.c">
       <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,7 +2,7 @@
 
 struct Image Harris(const struct Image* input)
 {
-	struct Image output = {};
+	struct Image output;
 
 	return output;
 }

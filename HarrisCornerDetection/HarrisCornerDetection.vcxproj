@@ -151,15 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\FileStream.cpp" />
-    <ClCompile Include="Source\Harris.cpp" />
-    <ClCompile Include="Source\Image.cpp" />
+    <ClCompile Include="Source\FileStream.c" />
+    <ClCompile Include="Source\Harris.c" />
+    <ClCompile Include="Source\Image.c" />
     <ClCompile Include="Source\IO.c" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MatlabUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\FileStream.h" />
+    <ClInclude Include="Source\FileStream.h">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
     <ClInclude Include="Source\Harris.h" />
     <ClInclude Include="Source\Image.h" />
     <ClInclude Include="Source\IO.h" />

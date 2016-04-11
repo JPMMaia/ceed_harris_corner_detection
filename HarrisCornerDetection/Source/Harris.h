@@ -2,4 +2,13 @@
 
 #include "Image.h"
 
-struct Image Harris(const struct Image* image);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+	struct Image Harris(const struct Image* image);
+
+#ifdef __cplusplus
+}
+#endif
