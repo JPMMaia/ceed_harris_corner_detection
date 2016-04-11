@@ -3,7 +3,7 @@
 #include <cassert>
 #include <stdlib.h>
 
-void FileStream_Open(struct FileStream* fileStream, const wchar_t* filenameW, const char* mode)
+void FileStream_Open(FileStream* fileStream, const wchar_t* filenameW, const char* mode)
 {
 	char filename[512];
 	wcstombs(filename, filenameW, 512);
@@ -14,12 +14,12 @@ void FileStream_Open(struct FileStream* fileStream, const wchar_t* filenameW, co
 	assert(fileStream->Stream);
 #endif
 }
-void FileStream_Close(const struct FileStream* fileStream)
+void FileStream_Close(const FileStream* fileStream)
 {
 	fclose(fileStream->Stream);
 }
 
-void FileStream_SkipUntil(const struct FileStream* fileStream, uint8_t byte)
+void FileStream_SkipUntil(const FileStream* fileStream, uint8_t byte)
 {
 	uint8_t c;
 	do
@@ -27,17 +27,21 @@ void FileStream_SkipUntil(const struct FileStream* fileStream, uint8_t byte)
 	while (c != byte);
 }
 
-void FileStream_ReadUInt8(const struct FileStream* fileStream, uint8_t* element)
+void FileStream_ReadUInt8(const FileStream* fileStream, uint8_t* element)
 {
 	uint32_t temp;
 	fscanf(fileStream->Stream, "%d", &temp);
 	*element = (uint8_t) temp;
 }
-void FileStream_ReadInt32(const struct FileStream* fileStream, int32_t* element)
+void FileStream_ReadInt32(const FileStream* fileStream, int32_t* element)
 {
 	fscanf(fileStream->Stream, "%d", element);
 }
-void FileStream_ReadUInt32(const struct FileStream* fileStream, uint32_t* element)
+void FileStream_ReadUInt32(const FileStream* fileStream, uint32_t* element)
 {
 	fscanf(fileStream->Stream, "%d", element);
+}
+void FileStream_ReadFloat(const FileStream* fileStream, float* element)
+{
+	fscanf(fileStream->Stream, "%f", element);
 }

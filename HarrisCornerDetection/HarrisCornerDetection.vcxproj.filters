@@ -23,13 +23,16 @@
     <ClCompile Include="Source\MatlabUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FileStream.c">
-      <Filter>Application</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Harris.c">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Image.c">
+    <ClCompile Include="Source\MathUtils.c">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FileStream.c">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MatrixFloat.c">
       <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,13 +43,16 @@
     <ClInclude Include="Source\MatlabUtils.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Image.h">
+    <ClInclude Include="Source\Harris.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MathUtils.h">
       <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\FileStream.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Harris.h">
+    <ClInclude Include="Source\MatrixFloat.h">
       <Filter>Application</Filter>
     </ClInclude>
   </ItemGroup>

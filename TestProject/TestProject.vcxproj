@@ -114,8 +114,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)HarrisCornerDetection\x64\Debug;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Image.obj;FileStream.obj;Harris.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MathUtils.obj;MatrixFloat.obj;FileStream.obj;Harris.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /I "$(ProjectDir)Resources" "$(OutDir)Resources"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -156,25 +159,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ImageTestUtils.h" />
+    <ClInclude Include="MatrixTestUtils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GaussianFilterTest.cpp" />
     <ClCompile Include="HarrisTest.cpp" />
-    <ClCompile Include="ImageTestUtils.cpp" />
+    <ClCompile Include="ConvolutionTest.cpp" />
+    <ClCompile Include="MatrixTestUtils.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ImageTest.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resources\InputImage.txt" />
-    <Text Include="Resources\OutputImage.txt" />
-    <Text Include="Resources\TestImage.txt" />
+    <Text Include="Resources\Convolve2DSameInputImage.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\Convolve2DSameOutputImage.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix1.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix2.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix3.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\HarrisInputImage.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\HarrisOutputImage.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="Resources\TestMatrixFloat.txt" />
+    <Text Include="Resources\TestMatrixInt.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

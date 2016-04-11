@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Image.h"
+#include "MatrixFloat.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-	struct Image Harris(const struct Image* image);
+	MatrixFloat Harris(const MatrixFloat* image);
 
 #ifdef __cplusplus
 }

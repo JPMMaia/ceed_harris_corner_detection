@@ -1,30 +1,24 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "Harris.h"
+#include "MathUtils.h"
 #include "MatrixTestUtils.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestProject
 {
-	TEST_CLASS(HarrisTest)
+	TEST_CLASS(GaussianFilterTest)
 	{
 	public:
 
-		TEST_METHOD(HarrisTestFunction)
+		TEST_METHOD(Gaussian1Test)
 		{
 			// Load expected image:
 			MatrixFloat expectedImage;
-			MatrixFloat_Load(&expectedImage, L"Resources/HarrisOutputImage.txt");
+			MatrixFloat_Load(&expectedImage, L"Resources/CreateGaussianFilterOutputMatrix1.txt");
 
 			// Compute actual image:
-			MatrixFloat actualImage;
-			{
-				MatrixFloat inputImage;
-				MatrixFloat_Load(&inputImage, L"Resources/HarrisInputImage.txt");
-				actualImage = Harris(&inputImage);
-				MatrixFloat_Shutdown(&inputImage);
-			}
+			MatrixFloat actualImage = CreateGaussianFilter();
 
 			// Compare images:
 			Assert::IsTrue(expectedImage == actualImage);

@@ -21,7 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImageTestUtils.h">
+    <ClInclude Include="MatrixTestUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,24 +29,48 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HarrisTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageTestUtils.cpp">
+    <ClCompile Include="MatrixTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixTestUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvolutionTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GaussianFilterTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resources\InputImage.txt">
+    <Text Include="Resources\Convolve2DSameInputImage.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Resources\OutputImage.txt">
+    <Text Include="Resources\Convolve2DSameOutputImage.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Resources\TestImage.txt">
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\CreateGaussianFilterOutputMatrix3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\HarrisInputImage.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\HarrisOutputImage.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\TestMatrixInt.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\TestMatrixFloat.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

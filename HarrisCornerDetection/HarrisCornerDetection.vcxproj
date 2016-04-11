@@ -153,18 +153,18 @@
   <ItemGroup>
     <ClCompile Include="Source\FileStream.c" />
     <ClCompile Include="Source\Harris.c" />
-    <ClCompile Include="Source\Image.c" />
+    <ClCompile Include="Source\MatrixFloat.c" />
     <ClCompile Include="Source\IO.c" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MathUtils.c" />
     <ClCompile Include="Source\MatlabUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\FileStream.h">
-      <FileType>CppHeader</FileType>
-    </ClInclude>
+    <ClInclude Include="Source\FileStream.h" />
     <ClInclude Include="Source\Harris.h" />
-    <ClInclude Include="Source\Image.h" />
+    <ClInclude Include="Source\MatrixFloat.h" />
     <ClInclude Include="Source\IO.h" />
+    <ClInclude Include="Source\MathUtils.h" />
     <ClInclude Include="Source\MatlabUtils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

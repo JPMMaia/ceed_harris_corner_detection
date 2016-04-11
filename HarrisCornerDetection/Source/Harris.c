@@ -1,8 +1,10 @@
 #include "Harris.h"
 
-struct Image Harris(const struct Image* input)
-{
-	struct Image output;
+#include <string.h>
 
+MatrixFloat Harris(const MatrixFloat* input)
+{
+	MatrixFloat output;
+	memset(&output, 0, sizeof(MatrixFloat));
 	return output;
 }

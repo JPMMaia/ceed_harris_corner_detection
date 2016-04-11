@@ -1,17 +1,17 @@
-#include "Image.h"
+#include "MatrixFloat.h"
 #include "FileStream.h"
 
 #include <assert.h>
 #include <stdlib.h>
 
-void Image_Initialize(struct Image* image, size_t width, size_t height)
+void MatrixFloat_Initialize(MatrixFloat* image, size_t width, size_t height)
 {
 	image->Width = width;
 	image->Height = height;
-	image->Data = (uint8_t*) malloc(width * height * sizeof(uint8_t));
+	image->Data = malloc(width * height * sizeof(float));
 }
 
-void Image_Shutdown(struct Image* image)
+void MatrixFloat_Shutdown(MatrixFloat* image)
 {
 	if(image->Data)
 		free(image->Data);
@@ -20,7 +20,7 @@ void Image_Shutdown(struct Image* image)
 	image->Width = 0;
 }
 
-uint8_t Image_Get(const struct Image* image, size_t i, size_t j)
+float MatrixFloat_Get(const MatrixFloat* image, size_t i, size_t j)
 {
 #ifdef _DEBUG
 	assert(i >= 0 && i < image->Height && j >= 0 && j < image->Width);
@@ -28,9 +28,9 @@ uint8_t Image_Get(const struct Image* image, size_t i, size_t j)
 
 	return image->Data[i * image->Width + j];
 }
-void Image_Load(struct Image* image, const wchar_t* filenameW)
+void MatrixFloat_Load(MatrixFloat* image, const wchar_t* filenameW)
 {
-	struct FileStream fileStream;
+	FileStream fileStream;
 	FileStream_Open(&fileStream, filenameW, "r");
 
 	// Read header:
@@ -54,7 +54,7 @@ void Image_Load(struct Image* image, const wchar_t* filenameW)
 	}
 
 	// Initialize image:
-	Image_Initialize(image, columns, rows);
+	MatrixFloat_Initialize(image, columns, rows);
 
 	// Read content:
 	{
@@ -62,7 +62,7 @@ void Image_Load(struct Image* image, const wchar_t* filenameW)
 		{
 			for (uint32_t j = 0; j < columns; ++j)
 			{
-				FileStream_ReadUInt8(&fileStream, &image->Data[i * columns + j]);
+				FileStream_ReadFloat(&fileStream, &image->Data[i * columns + j]);
 			}
 		}
 	}
