@@ -25,9 +25,9 @@ namespace TestProject
 				actualImage = Harris(&inputImage);
 				MatrixFloat_Shutdown(&inputImage);
 			}
-
+			
 			// Compare images:
-			Assert::IsTrue(expectedImage == actualImage);
+			TestUtils::AreEqual(expectedImage, actualImage, 0.001f);
 
 			// Free resources:
 			MatrixFloat_Shutdown(&actualImage);

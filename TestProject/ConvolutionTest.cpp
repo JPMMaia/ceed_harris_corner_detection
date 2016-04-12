@@ -50,7 +50,7 @@ namespace TestProject
 			}
 
 			// Compare images:
-			Assert::IsTrue(expectedImage == actualImage);
+			TestUtils::AreEqual(expectedImage, actualImage, 0.001f);
 
 			// Free resources:
 			MatrixFloat_Shutdown(&actualImage);

@@ -28,6 +28,17 @@ float MatrixFloat_Get(const MatrixFloat* image, size_t i, size_t j)
 
 	return image->Data[i * image->Width + j];
 }
+
+void MatrixFloat_Set(const MatrixFloat* image, size_t i, size_t j, float value)
+{
+#ifdef _DEBUG
+	assert(i >= 0 && i < image->Height && j >= 0 && j < image->Width);
+#endif
+
+	image->Data[i * image->Width + j] = value;
+
+}
+
 void MatrixFloat_Load(MatrixFloat* image, const wchar_t* filenameW)
 {
 	FileStream fileStream;
