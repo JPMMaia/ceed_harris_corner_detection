@@ -153,9 +153,9 @@
   <ItemGroup>
     <ClCompile Include="Source\FileStream.c" />
     <ClCompile Include="Source\Harris.c" />
+    <ClCompile Include="Source\main.c" />
     <ClCompile Include="Source\MatrixFloat.c" />
     <ClCompile Include="Source\IO.c" />
-    <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MathUtils.c" />
     <ClCompile Include="Source\MatlabUtils.cpp" />
   </ItemGroup>
