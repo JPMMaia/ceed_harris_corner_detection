@@ -177,6 +177,11 @@
     <ClCompile Include="MatrixTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Resources\Convolve2DSameAConvA.txt" />
+    <Text Include="Resources\Convolve2DSameAConvB.txt" />
+    <Text Include="Resources\Convolve2DSameAConvC.txt" />
+    <Text Include="Resources\Convolve2DSameBConvA.txt" />
+    <Text Include="Resources\Convolve2DSameCConvA.txt" />
     <Text Include="Resources\Convolve2DSameInputImage.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>

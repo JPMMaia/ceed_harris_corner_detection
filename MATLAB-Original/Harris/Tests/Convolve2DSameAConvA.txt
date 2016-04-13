@@ -1,0 +1,11 @@
+# Created by Octave 4.0.1, Tue Apr 12 20:46:02 2016 GMT Daylight Time <unknown@DESKTOP-6KCDKO5>
+# name: AConvA
+# type: matrix
+# rows: 4
+# columns: 5
+ 168 292 455 460 420
+ 484 776 1140 1080 940
+ 933 1372 1880 1660 1365
+ 1052 1508 2020 1740 1400
+
+

@@ -1,0 +1,11 @@
+# Created by Octave 4.0.1, Tue Apr 12 20:46:02 2016 GMT Daylight Time <unknown@DESKTOP-6KCDKO5>
+# name: BConvA
+# type: matrix
+# rows: 4
+# columns: 5
+ 1248 1852 2555 2260 1860
+ 2524 3656 4940 4280 3460
+ 2913 4132 5480 4660 3705
+ 2672 3748 4920 4140 3260
+
+

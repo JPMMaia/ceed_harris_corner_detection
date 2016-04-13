@@ -7,6 +7,7 @@ extern "C"
 {
 #endif
 
+	MatrixFloat ConvolutionSame(const MatrixFloat* vector1, const MatrixFloat* vector2);
 	MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* matrix2);
 	MatrixFloat CreateGaussianFilter();
 	void OrderStatisticFiltering(MatrixFloat* matrix);

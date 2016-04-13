@@ -73,5 +73,20 @@
     <Text Include="Resources\TestMatrixFloat.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Resources\Convolve2DSameAConvA.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\Convolve2DSameAConvB.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\Convolve2DSameAConvC.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\Convolve2DSameBConvA.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\Convolve2DSameCConvA.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

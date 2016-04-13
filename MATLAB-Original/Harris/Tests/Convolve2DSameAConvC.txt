@@ -1,0 +1,11 @@
+# Created by Octave 4.0.1, Tue Apr 12 20:46:02 2016 GMT Daylight Time <unknown@DESKTOP-6KCDKO5>
+# name: AConvC
+# type: matrix
+# rows: 4
+# columns: 5
+ -7 -4 -4 -4 11
+ -18 -6 -6 -6 24
+ -33 -6 -6 -6 39
+ -27 -4 -4 -4 31
+
+

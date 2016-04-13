@@ -1,16 +1,36 @@
 #include "MathUtils.h"
 
 #include <float.h>
+#include <math.h>
+
+MatrixFloat ConvolutionSame(const MatrixFloat* vector1, const MatrixFloat* vector2)
+{
+	// u = [1 0 1]
+	// v = [2 7]
+	// w = conv(u, v) = [2 7 2 7]
+
+	// m = l(u)
+	// n = l(v)
+	// len(w) = m + n - 1
+	// w(k) = sum(j, max(1, k+1-n):1:min(k,m), u(j) * v(k - j + 1)
+
+	MatrixFloat output;
+	MatrixFloat_Initialize(&output, 0, 0);
+	return output;
+}
 
 MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* matrix2)
 {
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix1->Width, matrix2->Height);
-	
+	/*
 	// k -> [-inf, inf]
 	// k -> [FLT_MIN, FLT_MAX]
-	// range -> (FLT_MAX - FLT_MIN) / NumIterations
-	
+	// epsilon = (FLT_MAX - FLT_MIN) / NumIterations
+	// epsilon / 2 = FLT_MAX / NumIterations
+	const size_t numberOfIterations = 1000;
+	const float halfEpsilon = FLT_MAX / (float) numberOfIterations;
+	const float epsilon = halfEpsilon * 2.0f;
 
 	// Input values: matrix a, matrix b
 	// Output values: matrix c
@@ -22,19 +42,21 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 		{
 			float sum = 0.0f;
 
-			// for (size_t k1 = -MIN; k1 < inf; ++k1)
+			for (size_t e1 = 0; e1 < numberOfIterations; ++e1)
 			{
-				// for(size_t k2 = -inf; k2 < inf; ++k2)	
+				float k1 = round(FLT_MIN + e1 * epsilon);
+				for (size_t e2 = 0; e2 < numberOfIterations; ++e2)
 				{
-					sum += MatrixFloat_Get(matrix1, k1, k2) * MatrixFloat_Get(matrix2, n1 - k1, n2 - k2);
+					float k2 = round(FLT_MIN + e2 * epsilon);
+
+					sum += MatrixFloat_Get(matrix1, k1, k2) * MatrixFloat_Get(matrix2, (float)n1 - k1, (float)n2 - k2);
 				}
 			}
 
 			MatrixFloat_Set(&output, n1, n2, sum);
 		}
 	}
-
-
+	*/
 	return output;
 }
 
