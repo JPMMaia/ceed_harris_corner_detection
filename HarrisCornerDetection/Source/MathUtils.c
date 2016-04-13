@@ -88,44 +88,69 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 	*/
 
 	MatrixFloat matrix2Rotated = Rotate180(matrix2);
-	float centerX = floorf(((float)matrix2Rotated.Width + 1.0f) / 2.0f);
-	float centerY = floorf(((float)matrix2Rotated.Height + 1.0f) / 2.0f);
-	float left = roundf(centerX - 1.0f);
-	float right = roundf(matrix2Rotated.Width - centerX);
-	float top = roundf(centerY - 1.0f);
-	float bottom = roundf(matrix2Rotated.Height - centerY);
+	size_t centerX = (size_t)floorf(((float)matrix2Rotated.Width + 1.0f) / 2.0f);
+	size_t centerY = (size_t)floorf(((float)matrix2Rotated.Height + 1.0f) / 2.0f);
+	size_t left = (size_t)roundf(centerX - 1.0f);
+	size_t right = (size_t)roundf(matrix2Rotated.Width - centerX);
+	size_t top = (size_t)roundf(centerY - 1.0f);
+	size_t bottom = (size_t)roundf(matrix2Rotated.Height - centerY);
 
 	MatrixFloat matrixC;
 	{
 		MatrixFloat_Initialize(&matrixC, matrix1->Width + left + right, matrix1->Height + top + bottom);
+		for (size_t i = 0; i < matrixC.Height; ++i)
+		{
+			for (size_t j = 0; j < matrixC.Width; ++j)
+			{
+				MatrixFloat_Set(&matrixC, i, j, 0.0f);
+			}
+		}
+
 		for (size_t i = 1 + top; i <= matrix1->Height + top; ++i)
 		{
-			for (size_t j = 1 + left; j <= matrix1->Width; ++j)
+			for (size_t j = 1 + left; j <= matrix1->Width + left; ++j)
 			{
-				MatrixFloat_Set(&matrixC, i - 1, j - 1, MatrixFloat_Get(matrix1, i - top - 1, j - left - 1));
+				float value = MatrixFloat_Get(matrix1,(int) i - (int) top - 1, (int) j - (int) left - 1);
+				MatrixFloat_Set(&matrixC, (int) i - 1, (int) j - 1, value);
 			}
 		}
 	}
 
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix1->Width, matrix1->Height);
+	// i -> [1, rowsA]
 	for (size_t i = 1; i <= matrix1->Height; ++i)
 	{
+		// q -> [0, rowsA]
+		size_t q = i - 1;
+
+		// j -> [1, columnsA]
 		for (size_t j = 1; j <= matrix1->Width; ++j)
 		{
+			// w -> [0, columnsA]
+			size_t w = j - 1;
+
 			float sum = 0.0f;
 
+			// k -> [1, rowsB]
 			for (size_t k = 1; k <= matrix2->Height; ++k)
 			{
+				// l -> [1, columnsB]
 				for (size_t l = 1; l <= matrix2->Width; ++l)
 				{
-					float q = i - 1;
-					float w = j - 1;
-					sum += MatrixFloat_Get(&matrixC, k + q - 1, l + w - 1) * MatrixFloat_Get(&matrix2Rotated, k - 1, l - 1);
+					// k + q -> [1, rowsA + rowsB]
+					// l + w -> [1, columnsA + columnsB]
+					// k - 1 -> [0, rowsB - 1]
+					// l - 1 -> [0, columnsB - 1]
+
+					float c  = MatrixFloat_Get(&matrixC, (int)k + (int)q - 1, (int)l + (int)w - 1);
+					float r = MatrixFloat_Get(&matrix2Rotated, (int)k - 1, (int)l - 1);
+
+					sum += c * r;
 				}
 			}
 
-			MatrixFloat_Set(&output, i, j, sum);
+			MatrixFloat_Set(&output, i - 1, j - 1, sum);
 		}
 	}
 
