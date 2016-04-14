@@ -26,7 +26,7 @@ namespace TestProject
 				{
 					for (size_t j = 0; j < 5; ++j)
 					{
-						MatrixFloat_Set(&s_matrixA, i, j, (float)(i * s_matrixA.Width + j));
+						MatrixFloat_Set(&s_matrixA, i, j, static_cast<float>(i * s_matrixA.Width + j));
 					}
 				}
 			}

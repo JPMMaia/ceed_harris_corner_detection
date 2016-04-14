@@ -206,5 +206,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 		}
 	}
 
+	Vector_Shutdown(&blockVector);
+
 	return output;
 }

@@ -1,0 +1,17 @@
+# Created by Octave 4.0.1, Fri Apr 15 00:54:32 2016 GMT Daylight Time <unknown@DESKTOP-6KCDKO5>
+# name: OutputA
+# type: bool matrix
+# rows: 10
+# columns: 10
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0
+ 1 0 0 0 0 0 0 0 1 0
+ 0 0 0 0 0 0 0 0 0 0
+
+

@@ -203,9 +203,11 @@
     <Text Include="Resources\HarrisInputImage.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
+    <Text Include="Resources\HarrisInputMatrixA.txt" />
     <Text Include="Resources\HarrisOutputImage.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
+    <Text Include="Resources\HarrisOutputMatrixA.txt" />
     <Text Include="Resources\OrderStatisticFilteringMatrixAInput.txt" />
     <Text Include="Resources\OrderStatisticFilteringMatrixAOutput.txt" />
     <Text Include="Resources\TestMatrixFloat.txt" />
