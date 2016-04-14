@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Vector.h"
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
@@ -171,6 +172,39 @@ MatrixFloat CreateGaussianFilter()
 MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
 {
 	MatrixFloat output;
-	memset(&output, 0, sizeof(MatrixFloat));
+	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
+	
+	Vector blockVector;
+	Vector_Initialize(&blockVector, domain->Width * domain->Height);
+
+	for (size_t i = 0; i < matrix->Height; ++i)
+	{
+		for (size_t j = 0; j < matrix->Width; ++j)
+		{
+			// Add elements of matrix to a vector and order them:
+			{
+				for (size_t bi = 0; bi < domain->Height; ++bi)
+				{
+					for (size_t bj = 0; bj < domain->Width; ++bj)
+					{
+						float value;
+						{
+							if (i + bi >= matrix->Height || j + bj >= matrix->Width)
+								value = 0.0f;
+							else
+								value = MatrixFloat_Get(matrix, i + bi, j + bj);
+						}
+
+						Vector_SetElement(&blockVector, bi * domain->Width + bj, value);
+					}
+				}
+
+				Vector_OrderAscendent(&blockVector);
+			}
+
+			MatrixFloat_Set(&output, i, j, Vector_GetElement(&blockVector, order - 1));
+		}
+	}
+
 	return output;
 }

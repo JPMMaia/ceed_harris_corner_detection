@@ -158,6 +158,7 @@
     <ClCompile Include="Source\IO.c" />
     <ClCompile Include="Source\MathUtils.c" />
     <ClCompile Include="Source\MatlabUtils.cpp" />
+    <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\FileStream.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Source\IO.h" />
     <ClInclude Include="Source\MathUtils.h" />
     <ClInclude Include="Source\MatlabUtils.hpp" />
+    <ClInclude Include="Source\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

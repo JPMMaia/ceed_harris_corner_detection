@@ -23,8 +23,7 @@ namespace TestProject
 				MatrixFloat inputMatrix;
 				MatrixFloat_Load(&inputMatrix, L"Resources/OrderStatisticFilteringMatrixAInput.txt");
 				{
-					const size_t radius = 3;
-					const size_t size = 2 * radius + 1;
+					const size_t size = 2;
 					MatrixFloat onesMatrix;
 					MatrixFloat_Initialize(&onesMatrix, size, size);
 					for (size_t i = 0; i < size; ++i)
@@ -35,7 +34,7 @@ namespace TestProject
 						}
 					}
 
-					OrderStatisticFiltering(&inputMatrix, size*size, &onesMatrix);
+					actualMatrix = OrderStatisticFiltering(&inputMatrix, 3, &onesMatrix);
 
 					MatrixFloat_Shutdown(&onesMatrix);
 				}

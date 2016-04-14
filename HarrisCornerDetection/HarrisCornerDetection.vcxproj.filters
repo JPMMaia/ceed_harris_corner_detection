@@ -35,6 +35,9 @@
     <ClCompile Include="Source\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Vector.c">
+      <Filter>Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\IO.h">
@@ -53,6 +56,9 @@
       <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\MatrixFloat.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vector.h">
       <Filter>Application</Filter>
     </ClInclude>
   </ItemGroup>

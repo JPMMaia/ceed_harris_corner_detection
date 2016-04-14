@@ -7,7 +7,7 @@ extern "C"
 {
 #endif
 
-	MatrixFloat Harris(const MatrixFloat* image);
+		MatrixFloat Harris(const MatrixFloat* image);
 
 #ifdef __cplusplus
 }

@@ -114,7 +114,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)HarrisCornerDetection\x64\Debug;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathUtils.obj;MatrixFloat.obj;FileStream.obj;Harris.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Vector.obj;MathUtils.obj;MatrixFloat.obj;FileStream.obj;Harris.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /I "$(ProjectDir)Resources" "$(OutDir)Resources"</Command>
@@ -177,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Convolve2DSameAConvA.txt" />
