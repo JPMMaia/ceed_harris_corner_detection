@@ -168,6 +168,7 @@
     <ClCompile Include="HarrisTest.cpp" />
     <ClCompile Include="ConvolutionTest.cpp" />
     <ClCompile Include="MatrixTestUtils.cpp" />
+    <ClCompile Include="OrderStatisticFilteringTest.cpp" />
     <ClCompile Include="RotateTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -204,6 +205,8 @@
     <Text Include="Resources\HarrisOutputImage.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixAInput.txt" />
+    <Text Include="Resources\OrderStatisticFilteringMatrixAOutput.txt" />
     <Text Include="Resources\TestMatrixFloat.txt" />
     <Text Include="Resources\TestMatrixInt.txt">
       <DeploymentContent>false</DeploymentContent>

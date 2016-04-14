@@ -47,6 +47,9 @@
     <ClCompile Include="RotateTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrderStatisticFilteringTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Convolve2DSameInputImage.txt">
@@ -89,6 +92,12 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="Resources\Convolve2DSameCConvA.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixAInput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixAOutput.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

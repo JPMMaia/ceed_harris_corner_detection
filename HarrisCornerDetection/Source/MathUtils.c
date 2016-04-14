@@ -3,6 +3,7 @@
 #include <float.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
@@ -52,48 +53,13 @@ MatrixFloat ConvolutionSame(const MatrixFloat* vector1, const MatrixFloat* vecto
 
 MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* matrix2)
 {
-	/*
-	// k -> [-inf, inf]
-	// k -> [FLT_MIN, FLT_MAX]
-	// epsilon = (FLT_MAX - FLT_MIN) / NumIterations
-	// epsilon / 2 = FLT_MAX / NumIterations
-	const size_t numberOfIterations = 1000;
-	const float halfEpsilon = FLT_MAX / (float) numberOfIterations;
-	const float epsilon = halfEpsilon * 2.0f;
-
-	// Input values: matrix a, matrix b
-	// Output values: matrix c
-	// c(n1, n2) := sum(k1, -inf, inf, sum(k2, -inf, inf, f(n1, n2, k1, k2)))
-	// f(n1, n2, k1, k2) := a(k1, k2) * b(n1 - k1, n2 - k2)
-	for (size_t n1 = 0; n1 < output.Height; ++n1)
-	{
-		for (size_t n2 = 0; n2 < output.Width; ++n2)
-		{
-			float sum = 0.0f;
-
-			for (size_t e1 = 0; e1 < numberOfIterations; ++e1)
-			{
-				float k1 = round(FLT_MIN + e1 * epsilon);
-				for (size_t e2 = 0; e2 < numberOfIterations; ++e2)
-				{
-					float k2 = round(FLT_MIN + e2 * epsilon);
-
-					sum += MatrixFloat_Get(matrix1, k1, k2) * MatrixFloat_Get(matrix2, (float)n1 - k1, (float)n2 - k2);
-				}
-			}
-
-			MatrixFloat_Set(&output, n1, n2, sum);
-		}
-	}
-	*/
-
 	MatrixFloat matrix2Rotated = Rotate180(matrix2);
 	size_t centerX = (size_t)floorf(((float)matrix2Rotated.Width + 1.0f) / 2.0f);
 	size_t centerY = (size_t)floorf(((float)matrix2Rotated.Height + 1.0f) / 2.0f);
-	size_t left = (size_t)roundf(centerX - 1.0f);
-	size_t right = (size_t)roundf(matrix2Rotated.Width - centerX);
-	size_t top = (size_t)roundf(centerY - 1.0f);
-	size_t bottom = (size_t)roundf(matrix2Rotated.Height - centerY);
+	size_t left = (size_t)roundf((float)centerX - 1.0f);
+	size_t right = (size_t)roundf((float)matrix2Rotated.Width - (float)centerX);
+	size_t top = (size_t)roundf((float)centerY - 1.0f);
+	size_t bottom = (size_t)roundf((float)matrix2Rotated.Height - (float)centerY);
 
 	MatrixFloat matrixC;
 	{
@@ -199,5 +165,12 @@ MatrixFloat CreateGaussianFilter()
 	output.Data[34] = 0.002278315796654662f;
 	output.Data[35] = 0.0003083365136427076f;
 
+	return output;
+}
+
+MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
+{
+	MatrixFloat output;
+	memset(&output, 0, sizeof(MatrixFloat));
 	return output;
 }
