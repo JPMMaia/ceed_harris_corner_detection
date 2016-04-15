@@ -7,96 +7,130 @@ void raiseToPower2()
 
 MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 {
-	MatrixFloat dx;
-	{
-		MatrixFloat_Initialize(&dx, 3, 3);
-
-		dx.Data[0] = -1.0f;
-		dx.Data[1] = 0.0f;
-		dx.Data[2] = 1.0f;
-
-		dx.Data[3] = -1.0f;
-		dx.Data[4] = 0.0f;
-		dx.Data[5] = 1.0f;
-
-		dx.Data[6] = -1.0f;
-		dx.Data[7] = 0.0f;
-		dx.Data[8] = 1.0f;
-	}
-
-	MatrixFloat dy;
-	{
-		MatrixFloat_Initialize(&dy, 3, 3);
-
-		dy.Data[0] = -1.0f;
-		dy.Data[1] = -1.0f;
-		dy.Data[2] = -1.0f;
-
-		dy.Data[3] = 0.0f;
-		dy.Data[4] = 0.0f;
-		dy.Data[5] = 0.0f;
-
-		dy.Data[6] = 1.0f;
-		dy.Data[7] = 1.0f;
-		dy.Data[8] = 1.0f;
-	}
-
-	MatrixFloat ix = Convolution2DSame(input, &dx);
-	MatrixFloat iy = Convolution2DSame(input, &dy);
-	MatrixFloat gaussian = CreateGaussianFilter();
-
-	MatrixFloat ixy;
-	{
-		MatrixFloat ixiy;
-		MatrixFloat_Initialize(&ixiy, ix.Width, ix.Height);
-		MatrixFloat_ExecuteElementByElement(&ixiy, &ix, &iy, Multiply);
-		ixy = Convolution2DSame(&ixiy, &gaussian);
-		MatrixFloat_ForEach(&ixy, &ixy, RaiseToPower2);
-		MatrixFloat_Shutdown(&ixiy);
-	}
-
-	MatrixFloat ix2;
-	{
-		MatrixFloat_ForEach(&ix, &ix, RaiseToPower2);
-		ix2 = Convolution2DSame(&ix, &gaussian);
-	}
-
-	MatrixFloat iy2;
-	{
-		MatrixFloat_ForEach(&iy, &iy, RaiseToPower2);
-		iy2 = Convolution2DSame(&iy, &gaussian);
-	}
-
 	MatrixFloat cim;
 	{
-		MatrixFloat_Initialize(&cim, ix2.Width, ix2.Height);
-
-		// Numerator:
-		{	
-			MatrixFloat_ExecuteElementByElement(&cim, &ix2, &iy2, Multiply);
-			MatrixFloat_ExecuteElementByElement(&cim, &cim, &ixy, Minus);
-		}
-
-		MatrixFloat denominator;
+		MatrixFloat gaussian = CreateGaussianFilter();
+		MatrixFloat ix2;
+		MatrixFloat iy2;
+		MatrixFloat ixy;
 		{
-			MatrixFloat_Initialize(&denominator, ix2.Width, ix2.Height);
-			MatrixFloat_ExecuteElementByElement(&denominator, &ix2, &iy2, Plus); // TODO add epsilon?
+			MatrixFloat ix;
+			{
+				MatrixFloat dx;
+				{
+					MatrixFloat_Initialize(&dx, 3, 3);
+
+					dx.Data[0] = -1.0f;
+					dx.Data[1] = 0.0f;
+					dx.Data[2] = 1.0f;
+
+					dx.Data[3] = -1.0f;
+					dx.Data[4] = 0.0f;
+					dx.Data[5] = 1.0f;
+
+					dx.Data[6] = -1.0f;
+					dx.Data[7] = 0.0f;
+					dx.Data[8] = 1.0f;
+				}
+
+				ix = Convolution2DSame(input, &dx);
+
+				MatrixFloat_Shutdown(&dx);
+			}
+
+			MatrixFloat iy;
+			{
+				MatrixFloat dy;
+				{
+					MatrixFloat_Initialize(&dy, 3, 3);
+
+					dy.Data[0] = -1.0f;
+					dy.Data[1] = -1.0f;
+					dy.Data[2] = -1.0f;
+
+					dy.Data[3] = 0.0f;
+					dy.Data[4] = 0.0f;
+					dy.Data[5] = 0.0f;
+
+					dy.Data[6] = 1.0f;
+					dy.Data[7] = 1.0f;
+					dy.Data[8] = 1.0f;
+				}
+
+				iy = Convolution2DSame(input, &dy);
+
+				MatrixFloat_Shutdown(&dy);
+			}
+
+			// ixy:
+			{
+				MatrixFloat ixiy;
+				MatrixFloat_Initialize(&ixiy, ix.Width, ix.Height);
+				MatrixFloat_ExecuteElementByElement(&ixiy, &ix, &iy, Multiply);
+				ixy = Convolution2DSame(&ixiy, &gaussian);
+				MatrixFloat_ForEach(&ixy, &ixy, RaiseToPower2);
+				MatrixFloat_Shutdown(&ixiy);
+			}
+
+			// ix2:
+			{
+				MatrixFloat_ForEach(&ix, &ix, RaiseToPower2);
+				ix2 = Convolution2DSame(&ix, &gaussian);
+			}
+
+			// iy2:
+			{
+				MatrixFloat_ForEach(&iy, &iy, RaiseToPower2);
+				iy2 = Convolution2DSame(&iy, &gaussian);
+			}
+
+			MatrixFloat_Shutdown(&iy);
+			MatrixFloat_Shutdown(&ix);
 		}
 
-		MatrixFloat_ExecuteElementByElement(&cim, &cim, &denominator, Divide);
+		// cim
+		{
+			// cim:
+			{
+				MatrixFloat_Initialize(&cim, ix2.Width, ix2.Height);
+
+				// Numerator:
+				{
+					MatrixFloat_ExecuteElementByElement(&cim, &ix2, &iy2, Multiply);
+					MatrixFloat_ExecuteElementByElement(&cim, &cim, &ixy, Minus);
+				}
+
+				MatrixFloat denominator;
+				{
+					MatrixFloat_Initialize(&denominator, ix2.Width, ix2.Height);
+					MatrixFloat_ExecuteElementByElement(&denominator, &ix2, &iy2, Plus); // TODO add epsilon?
+				}
+
+				MatrixFloat_ExecuteElementByElement(&cim, &cim, &denominator, Divide);
+			}
+
+			MatrixFloat mx;
+			{
+				size_t size = 2 * radius + 1;
+				MatrixFloat ones;
+				{
+					MatrixFloat_Initialize(&ones, size, size);
+					MatrixFloat_Fill(&ones, 1.0f);
+				}
+				mx = OrderStatisticFiltering(&cim, size*size, &ones);
+				MatrixFloat_Shutdown(&ones);
+			}
+
+			MatrixFloat_ExecuteElementByElement(&cim, &cim, &mx, FindMaxima);
+
+			MatrixFloat_Shutdown(&mx);
+		}
+
+		MatrixFloat_Shutdown(&ixy);
+		MatrixFloat_Shutdown(&iy2);
+		MatrixFloat_Shutdown(&ix2);
+		MatrixFloat_Shutdown(&gaussian);
 	}
-
-	size_t size = 2 * radius + 1;
-	MatrixFloat ones;
-	{
-		MatrixFloat_Initialize(&ones, size, size);
-		MatrixFloat_Fill(&ones, 1.0f);
-	}
-	MatrixFloat mx = OrderStatisticFiltering(&cim, size*size, &ones);
-
-	MatrixFloat_ExecuteElementByElement(&cim, &cim, &mx, FindMaxima);
-
-	// TODO free memory
 
 	return cim;
 }
@@ -125,5 +159,5 @@ float Divide(float value1, float value2)
 
 float FindMaxima(float value1, float value2)
 {
-	return (float) ((value1 == value2) && (value1 > 1000.0f));
+	return (float)((value1 == value2) && (value1 > 1000.0f));
 }
