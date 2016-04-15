@@ -109,5 +109,17 @@
     <Text Include="Resources\HarrisOutputMatrixA.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixBInput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixBOutput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixCInput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Resources\OrderStatisticFilteringMatrixCOutput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

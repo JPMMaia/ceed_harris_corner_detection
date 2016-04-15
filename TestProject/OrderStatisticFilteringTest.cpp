@@ -11,30 +11,29 @@ namespace TestProject
 	{
 	public:
 
-		TEST_METHOD(OrderStatisticFilteringMatrixATest)
+		static void TestOrderStatisticsFiltering(const std::wstring& inputFilename, const std::wstring& outputFilename, size_t order, size_t onesSize)
 		{
 			// Load expected matrix:
 			MatrixFloat expectedMatrix;
-			MatrixFloat_Load(&expectedMatrix, L"Resources/OrderStatisticFilteringMatrixAOutput.txt");
+			MatrixFloat_Load(&expectedMatrix, outputFilename.c_str());
 
 			// Compute actual matrix:
 			MatrixFloat actualMatrix;
 			{
 				MatrixFloat inputMatrix;
-				MatrixFloat_Load(&inputMatrix, L"Resources/OrderStatisticFilteringMatrixAInput.txt");
+				MatrixFloat_Load(&inputMatrix, inputFilename.c_str());
 				{
-					const size_t size = 2;
 					MatrixFloat onesMatrix;
-					MatrixFloat_Initialize(&onesMatrix, size, size);
-					for (size_t i = 0; i < size; ++i)
+					MatrixFloat_Initialize(&onesMatrix, onesSize, onesSize);
+					for (size_t i = 0; i < onesSize; ++i)
 					{
-						for (size_t j = 0; j < size; ++j)
+						for (size_t j = 0; j < onesSize; ++j)
 						{
 							MatrixFloat_Set(&onesMatrix, i, j, 1.0f);
 						}
 					}
 
-					actualMatrix = OrderStatisticFiltering(&inputMatrix, 3, &onesMatrix);
+					actualMatrix = OrderStatisticFiltering(&inputMatrix, order, &onesMatrix);
 
 					MatrixFloat_Shutdown(&onesMatrix);
 				}
@@ -48,6 +47,21 @@ namespace TestProject
 			// Free resources:
 			MatrixFloat_Shutdown(&actualMatrix);
 			MatrixFloat_Shutdown(&expectedMatrix);
+		}
+
+		TEST_METHOD(OrderStatisticFilteringMatrixATest)
+		{
+			TestOrderStatisticsFiltering(L"Resources/OrderStatisticFilteringMatrixAInput.txt", L"Resources/OrderStatisticFilteringMatrixAOutput.txt", 3, 2);
+		}
+
+		TEST_METHOD(OrderStatisticFilteringMatrixBTest)
+		{
+			TestOrderStatisticsFiltering(L"Resources/OrderStatisticFilteringMatrixBInput.txt", L"Resources/OrderStatisticFilteringMatrixBOutput.txt", 49, 7);
+		}
+
+		TEST_METHOD(OrderStatisticFilteringMatrixCTest)
+		{
+			TestOrderStatisticsFiltering(L"Resources/OrderStatisticFilteringMatrixCInput.txt", L"Resources/OrderStatisticFilteringMatrixCOutput.txt", 49, 7);
 		}
 	};
 }

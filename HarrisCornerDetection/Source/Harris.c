@@ -51,6 +51,7 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 		MatrixFloat_Initialize(&ixiy, ix.Width, ix.Height);
 		MatrixFloat_ExecuteElementByElement(&ixiy, &ix, &iy, Multiply);
 		ixy = Convolution2DSame(&ixiy, &gaussian);
+		MatrixFloat_ForEach(&ixy, &ixy, RaiseToPower2);
 		MatrixFloat_Shutdown(&ixiy);
 	}
 
@@ -64,7 +65,6 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 	{
 		MatrixFloat_ForEach(&iy, &iy, RaiseToPower2);
 		iy2 = Convolution2DSame(&iy, &gaussian);
-		MatrixFloat_ForEach(&iy2, &iy2, RaiseToPower2);
 	}
 
 	MatrixFloat cim;
@@ -101,9 +101,9 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 	return cim;
 }
 
-void RaiseToPower2(float* pValue)
+float RaiseToPower2(float value)
 {
-	*pValue *= *pValue;
+	return value * value;
 }
 
 float Plus(float value1, float value2)

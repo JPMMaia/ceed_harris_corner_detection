@@ -25,6 +25,13 @@ function [cim, r, c] = harris_v1(im, sigma, thresh, radius)
     Iy2 = conv2(Iy.^2, g, 'same');
     Ixy = conv2(Ix.*Iy, g, 'same');
     
+    r1 = Ix2.*Iy2;
+    r2 = Ixy.^2;
+    r3 = r1 - r2;
+    r4 = Ix2 + Iy2;
+    r5 = r4 + eps;
+    r6 = r3 ./ r5;
+    
     cim = (Ix2.*Iy2 - Ixy.^2)./(Ix2 + Iy2 + eps); % Harris corner measure
 	
     sze = 2*radius+1;                   % Size of mask.

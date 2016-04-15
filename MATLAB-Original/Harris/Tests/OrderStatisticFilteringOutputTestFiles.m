@@ -4,7 +4,7 @@ A = [ 1 2 4 5 ;
       5 3 5 1 ;
       0 3 5 2 ;
       2 1 7 7 ];
-OutputA = ordfilt2(A, 3, ones(2,2));
+%OutputA = ordfilt2(A, 3, ones(2,2));
 
 B = [
 		0 1 2 3 4 5 6 7 8 9;
@@ -25,8 +25,9 @@ C = single(C);
 
 radius = 3;
 size = 2*radius+1;
-OutputB = ordfilt2(B, size^2, ones(size));
-OutputC = ordfilt2(C, size^2, ones(size));
+size2 = size^2;
+OutputB = ordfilt2(B, 9, ones(3));
+OutputC = ordfilt2(C, size2, ones(size));
 
 save -text OrderStatisticFilteringMatrixAInput.txt A;
 save -text OrderStatisticFilteringMatrixAOutput.txt OutputA;
