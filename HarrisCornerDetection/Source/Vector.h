@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stddef.h>
-
 typedef struct _Vector
 {
 	float* Data;
@@ -23,6 +21,9 @@ extern "C"
 	void Vector_Clear(Vector* vector);
 
 	void Vector_OrderAscendent(Vector* vector);
+	void Vector_OrderQuicksort(Vector* vector);
+	static void Vector_OrderQuicksortAuxiliary(Vector* vector, size_t low, size_t high);
+	static size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high);
 
 #ifdef __cplusplus
 }

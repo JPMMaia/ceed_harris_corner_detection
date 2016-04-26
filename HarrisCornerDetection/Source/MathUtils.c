@@ -1,9 +1,7 @@
 #include "MathUtils.h"
 
-#include <float.h>
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
 #include "Vector.h"
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
@@ -175,6 +173,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
 	
 	Vector blockVector;
+
 	Vector_Initialize(&blockVector, domain->Width * domain->Height);
 
 	// 2 -> [0, 1], [1, 2]
@@ -190,9 +189,9 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 		{
 			// Add elements of matrix to a vector and order them:
 			{
-				for (int32_t bi = i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
+				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
 				{
-					for (int32_t bj = j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
+					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
 					{
 						float value;
 						{
@@ -206,7 +205,8 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 					}
 				}
 
-				Vector_OrderAscendent(&blockVector);
+				//Vector_OrderAscendent(&blockVector);
+				Vector_OrderQuicksort(&blockVector);
 			}
 
 			MatrixFloat_Set(&output, i, j, Vector_GetElement(&blockVector, order - 1));

@@ -53,5 +53,27 @@ namespace TestProject
 
 			Vector_Shutdown(&vector);
 		}
+
+		TEST_METHOD(VectorQuicksortTest)
+		{
+			Vector vector;
+			Vector_Initialize(&vector, 5);
+
+			Vector_AddElement(&vector, 2.0f);
+			Vector_AddElement(&vector, 1.0f);
+			Vector_AddElement(&vector, 5.0f);
+			Vector_AddElement(&vector, -3.0f);
+			Vector_AddElement(&vector, 2.0f);
+
+			Vector_OrderQuicksort(&vector);
+
+			Assert::AreEqual(-3.0f, Vector_GetElement(&vector, 0));
+			Assert::AreEqual(1.0f, Vector_GetElement(&vector, 1));
+			Assert::AreEqual(2.0f, Vector_GetElement(&vector, 2));
+			Assert::AreEqual(2.0f, Vector_GetElement(&vector, 3));
+			Assert::AreEqual(5.0f, Vector_GetElement(&vector, 4));
+
+			Vector_Shutdown(&vector);
+		}
 	};
 }

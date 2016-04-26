@@ -5,13 +5,13 @@
 
 void Vector_Initialize(Vector* vector, size_t size)
 {
-	vector->Data = (float*) malloc(size * sizeof(float));
+	vector->Data = (float*)malloc(size * sizeof(float));
 	vector->Size = 0;
 	vector->ReservedSize = size;
 }
 void Vector_Shutdown(Vector* vector)
 {
-	if(vector->Data)
+	if (vector->Data)
 	{
 		free(vector->Data);
 		vector->Data = NULL;
@@ -57,12 +57,57 @@ void Vector_OrderAscendent(Vector* vector)
 	{
 		for (size_t j = i; j < vector->Size; ++j)
 		{
-			if(vector->Data[i] > vector->Data[j])
+			if (vector->Data[i] > vector->Data[j])
 			{
 				float temp = vector->Data[i];
 				vector->Data[i] = vector->Data[j];
 				vector->Data[j] = temp;
 			}
 		}
+	}
+}
+
+void Vector_OrderQuicksort(Vector* vector)
+{
+	Vector_OrderQuicksortAuxiliary(vector, 0, vector->Size - 1);
+}
+
+void Vector_OrderQuicksortAuxiliary(Vector* vector, size_t low, size_t high)
+{
+	if (low < high)
+	{
+		size_t p = Vector_QuicksortPartition(vector, low, high);
+
+		Vector_OrderQuicksortAuxiliary(vector, low, p);
+		Vector_OrderQuicksortAuxiliary(vector, p + 1, high);
+	}
+}
+
+size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high)
+{
+	float pivot = vector->Data[low];
+	int i = (int)low - 1;
+	int j = (int)high + 1;
+
+	while(1)
+	{
+		do
+		{
+			++i;
+		}
+		while (vector->Data[i] < pivot);
+
+		do
+		{
+			--j;
+		} 
+		while (vector->Data[j] > pivot);
+
+		if (i >= j)
+			return j;
+
+		float temp = vector->Data[i];
+		vector->Data[i] = vector->Data[j];
+		vector->Data[j] = temp;
 	}
 }

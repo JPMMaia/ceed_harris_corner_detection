@@ -1,10 +1,6 @@
 #include "Harris.h"
 #include "MathUtils.h"
 
-void raiseToPower2()
-{
-}
-
 MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 {
 	MatrixFloat cim;
