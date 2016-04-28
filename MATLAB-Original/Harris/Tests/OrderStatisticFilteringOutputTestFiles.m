@@ -26,7 +26,7 @@ C = single(C);
 radius = 3;
 size = 2*radius+1;
 size2 = size^2;
-OutputB = ordfilt2(B, 9, ones(3));
+OutputB = ordfilt2(B, size2, ones(size));
 OutputC = ordfilt2(C, size2, ones(size));
 
 save -text OrderStatisticFilteringMatrixAInput.txt A;

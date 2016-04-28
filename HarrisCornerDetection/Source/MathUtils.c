@@ -1,9 +1,8 @@
 #include "MathUtils.h"
 
-#include <float.h>
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
+#include <float.h>
 #include "Vector.h"
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
@@ -175,7 +174,15 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
 	
 	Vector blockVector;
+
 	Vector_Initialize(&blockVector, domain->Width * domain->Height);
+
+	// 2 -> [0, 1], [1, 2]
+	// 3 -> [-1, 1], [0, 2],
+	// 4 -> [-1, 2], [0, 3],
+	// 5 -> [-2, 2], [-1, 3]
+	// center -> 0, right -> floor(size / 2), left -> -(size - 1) / 2
+	// center -> 1, right -> center + floor(size / 2), left -> center - (size - 1) / 2
 
 	for (size_t i = 0; i < matrix->Height; ++i)
 	{
@@ -183,30 +190,66 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 		{
 			// Add elements of matrix to a vector and order them:
 			{
-				for (size_t bi = 0; bi < domain->Height; ++bi)
+				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
 				{
-					for (size_t bj = 0; bj < domain->Width; ++bj)
+					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
 					{
 						float value;
 						{
-							if (i + bi >= matrix->Height || j + bj >= matrix->Width)
+							if(bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
 								value = 0.0f;
 							else
-								value = MatrixFloat_Get(matrix, i + bi, j + bj);
+								value = MatrixFloat_Get(matrix, bi, bj);
 						}
 
-						Vector_SetElement(&blockVector, bi * domain->Width + bj, value);
+						Vector_AddElement(&blockVector, value);
 					}
 				}
 
-				Vector_OrderAscendent(&blockVector);
+				//Vector_OrderAscendent(&blockVector);
+				Vector_OrderQuicksort(&blockVector);
 			}
 
 			MatrixFloat_Set(&output, i, j, Vector_GetElement(&blockVector, order - 1));
+			Vector_Clear(&blockVector);
 		}
 	}
 
 	Vector_Shutdown(&blockVector);
+
+	return output;
+}
+
+MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
+{
+	MatrixFloat output;
+	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
+
+	for (size_t i = 0; i < matrix->Height; ++i)
+	{
+		for (size_t j = 0; j < matrix->Width; ++j)
+		{
+			// Find maximum value:
+			float maximumValue = FLT_MIN;
+			{
+				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
+				{
+					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
+					{
+						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
+							continue;
+
+						float value = MatrixFloat_Get(matrix, bi, bj);
+						if (value > maximumValue)
+							maximumValue = value;
+					}
+				}
+			}
+
+			// Set matrix element:
+			MatrixFloat_Set(&output, i, j, maximumValue);
+		}
+	}
 
 	return output;
 }

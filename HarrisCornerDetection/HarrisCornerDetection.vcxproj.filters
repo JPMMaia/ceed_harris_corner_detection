@@ -14,12 +14,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\IO.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MatlabUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Harris.c">
       <Filter>Application</Filter>
     </ClCompile>
@@ -40,12 +34,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\IO.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MatlabUtils.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Harris.h">
       <Filter>Application</Filter>
     </ClInclude>
@@ -61,5 +49,10 @@
     <ClInclude Include="Source\Vector.h">
       <Filter>Application</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\HarrisInputImage.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
