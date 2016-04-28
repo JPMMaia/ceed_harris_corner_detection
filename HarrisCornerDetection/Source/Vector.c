@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void Vector_Initialize(Vector* vector, size_t size)
 {
@@ -110,4 +111,12 @@ size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high)
 		vector->Data[i] = vector->Data[j];
 		vector->Data[j] = temp;
 	}
+}
+
+void Vector_Print(Vector* vector)
+{
+	printf("Vector; Size: %llu; ReservedSize: %llu; Elements:", vector->Size, vector->ReservedSize);
+	for (size_t i = 0; i < vector->Size; ++i)
+		printf(" %f;", vector->Data[i]);
+	printf("\n");
 }

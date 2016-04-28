@@ -25,6 +25,8 @@ extern "C"
 	static void Vector_OrderQuicksortAuxiliary(Vector* vector, size_t low, size_t high);
 	static size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high);
 
+	void Vector_Print(Vector* vector);
+
 #ifdef __cplusplus
 }
 #endif

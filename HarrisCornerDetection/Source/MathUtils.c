@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <float.h>
 #include "Vector.h"
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
@@ -215,6 +216,40 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 	}
 
 	Vector_Shutdown(&blockVector);
+
+	return output;
+}
+
+MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
+{
+	MatrixFloat output;
+	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
+
+	for (size_t i = 0; i < matrix->Height; ++i)
+	{
+		for (size_t j = 0; j < matrix->Width; ++j)
+		{
+			// Find maximum value:
+			float maximumValue = FLT_MIN;
+			{
+				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
+				{
+					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
+					{
+						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
+							continue;
+
+						float value = MatrixFloat_Get(matrix, bi, bj);
+						if (value > maximumValue)
+							maximumValue = value;
+					}
+				}
+			}
+
+			// Set matrix element:
+			MatrixFloat_Set(&output, i, j, maximumValue);
+		}
+	}
 
 	return output;
 }

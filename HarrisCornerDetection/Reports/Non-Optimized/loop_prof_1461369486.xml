@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loop_prof>
+	<functions>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>52887</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>52887</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_PGOSF3_FindMaxima]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>161</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>4233</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>4233</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Vector_Shutdown]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Vector.c]]></name>
+				<line>13</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\VECTOR.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>174</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>174</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Vector_Initialize]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Vector.c]]></name>
+				<line>7</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\VECTOR.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>85.61</ticks_perc>
+			<ticks_abs>326095914</ticks_abs>
+			<self_perc>85.61</self_perc>
+			<self_abs>326080326</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[OrderStatisticFiltering]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MathUtils.c]]></name>
+				<line>172</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATHUTILS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>111</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>111</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_Fill]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>124</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>15357</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>15357</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_PGOSF2_Divide]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>156</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>48639</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>48639</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_PGOSF1_Plus]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>144</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.06</ticks_perc>
+			<ticks_abs>212619</ticks_abs>
+			<self_perc>0.06</self_perc>
+			<self_abs>212619</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Minus]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>148</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.02</ticks_perc>
+			<ticks_abs>71631</ticks_abs>
+			<self_perc>0.02</self_perc>
+			<self_abs>71631</self_abs>
+			<call_cnt>3</call_cnt>
+			<exit_cnt>3</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_ForEach]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>97</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.03</ticks_perc>
+			<ticks_abs>119925</ticks_abs>
+			<self_perc>0.03</self_perc>
+			<self_abs>119925</self_abs>
+			<call_cnt>100800</call_cnt>
+			<exit_cnt>100800</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_PGOSF0_Multiply]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>152</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.79</ticks_perc>
+			<ticks_abs>3012120</ticks_abs>
+			<self_perc>0.67</self_perc>
+			<self_abs>2562693</self_abs>
+			<call_cnt>6</call_cnt>
+			<exit_cnt>6</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_ExecuteElementByElement]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>108</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.10</ticks_perc>
+			<ticks_abs>369189</ticks_abs>
+			<self_perc>0.10</self_perc>
+			<self_abs>369189</self_abs>
+			<call_cnt>13</call_cnt>
+			<exit_cnt>13</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_Shutdown]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>16</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>5.12</ticks_perc>
+			<ticks_abs>19492101</ticks_abs>
+			<self_perc>5.09</self_perc>
+			<self_abs>19394475</self_abs>
+			<call_cnt>5</call_cnt>
+			<exit_cnt>5</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Convolution2DSame]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MathUtils.c]]></name>
+				<line>55</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATHUTILS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>3669</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>525</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[CreateGaussianFilter]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MathUtils.c]]></name>
+				<line>127</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATHUTILS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>91.63</ticks_perc>
+			<ticks_abs>349007709</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>6045</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Harris]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>9</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>51666</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>51666</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FileStream_Close]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\FileStream.c]]></name>
+				<line>18</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\FILESTREAM.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.04</ticks_perc>
+			<ticks_abs>145959</ticks_abs>
+			<self_perc>0.04</self_perc>
+			<self_abs>145959</self_abs>
+			<call_cnt>24</call_cnt>
+			<exit_cnt>24</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_Initialize]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>9</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>78</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>78</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FileStream_SkipUntil..1]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\FileStream.c]]></name>
+				<line>23</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\FILESTREAM.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>8.25</ticks_perc>
+			<ticks_abs>31408677</ticks_abs>
+			<self_perc>8.22</self_perc>
+			<self_abs>31303740</self_abs>
+			<call_cnt>50402</call_cnt>
+			<exit_cnt>50402</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[fscanf]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\ucrt\stdio.h]]></name>
+				<line>1200</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\WINDOWS KITS\10\INCLUDE\10.0.10586.0\UCRT\STDIO.H]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>21213</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>204</self_abs>
+			<call_cnt>2</call_cnt>
+			<exit_cnt>2</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FileStream_ReadUInt32]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\FileStream.c]]></name>
+				<line>41</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\FILESTREAM.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>1137</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>1137</self_abs>
+			<call_cnt>2</call_cnt>
+			<exit_cnt>2</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FileStream_SkipUntil..0]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\FileStream.c]]></name>
+				<line>23</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\FILESTREAM.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.03</ticks_perc>
+			<ticks_abs>115488</ticks_abs>
+			<self_perc>0.03</self_perc>
+			<self_abs>115488</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FileStream_Open]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\FileStream.c]]></name>
+				<line>7</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\FILESTREAM.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>8.33</ticks_perc>
+			<ticks_abs>31744209</ticks_abs>
+			<self_perc>0.04</self_perc>
+			<self_abs>158316</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_Load]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>44</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>99.98</ticks_perc>
+			<ticks_abs>380822313</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>1959</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[main]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\main.c]]></name>
+				<line>5</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MAIN.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.03</ticks_perc>
+			<ticks_abs>104985</ticks_abs>
+			<self_perc>0.03</self_perc>
+			<self_abs>104985</self_abs>
+			<call_cnt>50403</call_cnt>
+			<exit_cnt>50403</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_local_stdio_scanf_options]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\ucrt\corecrt_stdio_config.h]]></name>
+				<line>89</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\WINDOWS KITS\10\INCLUDE\10.0.10586.0\UCRT\CORECRT_STDIO_CONFIG.H]]></path>
+			</file>
+		</function>
+	</functions>
+</loop_prof>
