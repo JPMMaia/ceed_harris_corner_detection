@@ -2,8 +2,8 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <float.h>
 #include "Vector.h"
+#include <float.h>
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {

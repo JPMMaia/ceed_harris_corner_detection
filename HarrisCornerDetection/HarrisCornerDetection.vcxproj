@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -141,9 +141,9 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <CompileAs>CompileAsC</CompileAs>
+      <CompileAs>Default</CompileAs>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/Qprofile-functions /Qparallel %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeedHighLevel</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,9 +156,10 @@
   <ItemGroup>
     <ClCompile Include="Source\FileStream.c" />
     <ClCompile Include="Source\Harris.c" />
-    <ClCompile Include="Source\main.c" />
+    <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MatrixFloat.c" />
     <ClCompile Include="Source\MathUtils.c" />
+    <ClCompile Include="Source\Profiler.cpp" />
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="Source\Harris.h" />
     <ClInclude Include="Source\MatrixFloat.h" />
     <ClInclude Include="Source\MathUtils.h" />
+    <ClInclude Include="Source\Profiler.h" />
     <ClInclude Include="Source\Vector.h" />
   </ItemGroup>
   <ItemGroup>

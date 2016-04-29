@@ -26,11 +26,14 @@
     <ClCompile Include="Source\MatrixFloat.c">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Vector.c">
       <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Profiler.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +50,9 @@
       <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\Vector.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Profiler.h">
       <Filter>Application</Filter>
     </ClInclude>
   </ItemGroup>
