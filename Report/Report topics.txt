@@ -1,0 +1,4 @@
+introdução
+objetivo do projeto
+explicação do projeto
+resultados -> otimizações e passos

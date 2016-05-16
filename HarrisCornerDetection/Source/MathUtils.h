@@ -12,6 +12,7 @@ extern "C"
 	MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* matrix2);
 	MatrixFloat CreateGaussianFilter();
 	MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain);
+	MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat* domain);
 
 #ifdef __cplusplus
 }

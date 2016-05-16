@@ -113,7 +113,7 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 					MatrixFloat_Initialize(&ones, size, size);
 					MatrixFloat_Fill(&ones, 1.0f);
 				}
-				mx = OrderStatisticFiltering(&cim, size*size, &ones);
+				mx = OrderStatisticFilteringSpecialized(&cim, &ones);
 				MatrixFloat_Shutdown(&ones);
 			}
 

@@ -220,7 +220,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 	return output;
 }
 
-MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
+MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat* domain)
 {
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
