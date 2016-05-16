@@ -63,6 +63,9 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 	MatrixFloat matrixC;
 	{
+		// Initialize all elements to 0:
+		// 1. Try memset
+		// 2. Try loop coalescing
 		MatrixFloat_Initialize(&matrixC, matrix1->Width + left + right, matrix1->Height + top + bottom);
 		for (size_t i = 0; i < matrixC.Height; ++i)
 		{

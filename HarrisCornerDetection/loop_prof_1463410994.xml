@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loop_prof>
+	<functions>
+		<function>
+			<ticks_perc>0.02</ticks_perc>
+			<ticks_abs>92945</ticks_abs>
+			<self_perc>0.02</self_perc>
+			<self_abs>92945</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[class std::basic_ostream<char,struct std::char_traits<char> > & std::endl<char,struct std::char_traits<char> >(class std::basic_ostream<char,struct std::char_traits<char> > &)]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream]]></name>
+				<line>993</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\VC\INCLUDE\OSTREAM]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>1.01</ticks_perc>
+			<ticks_abs>3886301</ticks_abs>
+			<self_perc>1.01</self_perc>
+			<self_abs>3886301</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[class std::basic_ostream<char,struct std::char_traits<char> > & std::operator<<<struct std::char_traits<char> >(class std::basic_ostream<char,struct std::char_traits<char> > &,char const *)]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream]]></name>
+				<line>782</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\VC\INCLUDE\OSTREAM]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.03</ticks_perc>
+			<ticks_abs>120073</ticks_abs>
+			<self_perc>0.03</self_perc>
+			<self_abs>120073</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[FindMaxima]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>157</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>26998</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>26998</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Divide]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>152</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>55322</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>55322</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Plus]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>140</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.01</ticks_perc>
+			<ticks_abs>51006</ticks_abs>
+			<self_perc>0.01</self_perc>
+			<self_abs>51006</self_abs>
+			<call_cnt>50400</call_cnt>
+			<exit_cnt>50400</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Minus]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>144</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.08</ticks_perc>
+			<ticks_abs>316216</ticks_abs>
+			<self_perc>0.08</self_perc>
+			<self_abs>316216</self_abs>
+			<call_cnt>100800</call_cnt>
+			<exit_cnt>100800</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Multiply]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>148</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>7.01</ticks_perc>
+			<ticks_abs>26976528</ticks_abs>
+			<self_perc>6.96</self_perc>
+			<self_abs>26768799</self_abs>
+			<call_cnt>5</call_cnt>
+			<exit_cnt>5</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Convolution2DSame]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MathUtils.c]]></name>
+				<line>55</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATHUTILS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>10.97</ticks_perc>
+			<ticks_abs>42202505</ticks_abs>
+			<self_perc>3.79</self_perc>
+			<self_abs>14568884</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[Harris]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\Harris.c]]></name>
+				<line>5</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\HARRIS.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.08</ticks_perc>
+			<ticks_abs>313755</ticks_abs>
+			<self_perc>0.08</self_perc>
+			<self_abs>313755</self_abs>
+			<call_cnt>24</call_cnt>
+			<exit_cnt>24</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[MatrixFloat_Initialize]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\MatrixFloat.c]]></name>
+				<line>9</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MATRIXFLOAT.C]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>8.76</ticks_perc>
+			<ticks_abs>33678326</ticks_abs>
+			<self_perc>8.74</self_perc>
+			<self_abs>33608520</self_abs>
+			<call_cnt>50402</call_cnt>
+			<exit_cnt>50402</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[fscanf]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\ucrt\stdio.h]]></name>
+				<line>1200</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\WINDOWS KITS\10\INCLUDE\10.0.10586.0\UCRT\STDIO.H]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>27.75</ticks_perc>
+			<ticks_abs>106722395</ticks_abs>
+			<self_perc>6.98</self_perc>
+			<self_abs>26843770</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[main]]></function>
+			<file>
+				<name><![CDATA[C:\Users\JPMMaia\Documents\Projects\Cadeiras\4th year\2nd Semester\CEED\ceed_harris_corner_detection\HarrisCornerDetection\Source\main.cpp]]></name>
+				<line>11</line>
+				<path><![CDATA[C:\USERS\JPMMAIA\DOCUMENTS\PROJECTS\CADEIRAS\4TH YEAR\2ND SEMESTER\CEED\CEED_HARRIS_CORNER_DETECTION\HARRISCORNERDETECTION\SOURCE\MAIN.CPP]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.02</ticks_perc>
+			<ticks_abs>70753</ticks_abs>
+			<self_perc>0.02</self_perc>
+			<self_abs>70753</self_abs>
+			<call_cnt>50403</call_cnt>
+			<exit_cnt>50403</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_local_stdio_scanf_options]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\ucrt\corecrt_stdio_config.h]]></name>
+				<line>89</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\WINDOWS KITS\10\INCLUDE\10.0.10586.0\UCRT\CORECRT_STDIO_CONFIG.H]]></path>
+			</file>
+		</function>
+		<function>
+			<ticks_perc>0.00</ticks_perc>
+			<ticks_abs>1031</ticks_abs>
+			<self_perc>0.00</self_perc>
+			<self_abs>1031</self_abs>
+			<call_cnt>1</call_cnt>
+			<exit_cnt>1</exit_cnt>
+			<loops_perc>0.00</loops_perc>
+			<function><![CDATA[_local_stdio_printf_options]]></function>
+			<file>
+				<name><![CDATA[C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\ucrt\corecrt_stdio_config.h]]></name>
+				<line>80</line>
+				<path><![CDATA[C:\PROGRAM FILES (X86)\WINDOWS KITS\10\INCLUDE\10.0.10586.0\UCRT\CORECRT_STDIO_CONFIG.H]]></path>
+			</file>
+		</function>
+	</functions>
+</loop_prof>
