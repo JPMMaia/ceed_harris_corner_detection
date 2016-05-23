@@ -73,13 +73,14 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 			for (size_t j = 0; j < matrixC.Width; ++j)
 				MatrixFloat_Set(&matrixC, i, j, 0.0f);
 #endif
-#ifdef _Version1
+#ifdef _Version001
 		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
 #endif
-#ifdef _Version2
+#ifdef _Version002
 		// TODO try loop coalescing
 #endif
 
+#ifdef _Version0
 		for (size_t i = 1 + top; i <= matrix1->Height + top; ++i)
 		{
 			for (size_t j = 1 + left; j <= matrix1->Width + left; ++j)
@@ -88,12 +89,59 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 				MatrixFloat_Set(&matrixC, (int)i - 1, (int)j - 1, value);
 			}
 		}
+#endif
+#ifdef _Version011
+		// Loop normalization:
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
+		float* matrix1Array = matrix1->Data;
+		size_t matrix1Width = matrix1->Width;
+		for (size_t i = 0; i < matrix1->Height; ++i)
+		{
+			size_t index0 = (i + top) * matrixCWidth + left;
+			size_t index1 = i * matrix1Width;
+			for (size_t j = 0; j < matrix1->Width; ++j)
+			{
+				matrixCArray[index0 + j] = matrix1Array[index1 + j];
+			}
+		}
+#endif
+#ifdef _Version012
+		// Loop coalescing:
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
+		float* matrix1Array = matrix1->Data;
+		size_t matrix1Width = matrix1->Width;
+		size_t matrix1Height = matrix1->Height;
+		for (size_t t = 0; t < matrix1Height * matrix1Width; ++t)
+		{
+			size_t i = t / matrix1Width;
+			size_t j = t % matrix1Width;
+
+			size_t index0 = (i + top) * matrixCWidth + left;
+			size_t index1 = i * matrix1Width;
+			matrixCArray[index0 + j] = matrix1Array[index1 + j];
+		}
+#endif
+#ifdef _Version013
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
+		float* matrix1Array = matrix1->Data;
+		size_t matrix1Width = matrix1->Width;
+		size_t matrix1Height = matrix1->Height;
+		for (size_t i = 0; i < matrix1Height; ++i)
+		{
+			size_t index0 = (i + top) * matrixCWidth + left;
+			size_t index1 = i * matrix1Width;
+			memcpy(&matrixCArray[index0], &matrix1Array[index1], matrix1Width * sizeof(float));
+		}
+#endif
 	}
 
 	// Allocate memory and initialize width and height of matrix:
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix1->Width, matrix1->Height);
-	
+
 #ifdef _Version0
 	// i -> [1, rowsA]
 	for (size_t i = 1; i <= matrix1->Height; ++i)
@@ -128,32 +176,37 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 			}
 
 			MatrixFloat_Set(&output, i - 1, j - 1, sum);
-		}
+}
 	}
 #endif
-#ifdef _Version4
-	float* outputArray = matrixC.Data;
-	size_t outputArrayWidth = matrixC.Width;
-	float* matrix2RotatedArray = matrix2Rotated.Data;
-	size_t matrix2RotatedWidth = matrix2Rotated.Width;
-	for (size_t i = 0; i < matrix1->Height; ++i)
+#ifdef _Version021
 	{
-		for (size_t j = 0; j < matrix1->Width; ++j)
+		float* outputArray = matrixC.Data;
+		size_t outputArrayWidth = matrixC.Width;
+		float* matrix2RotatedArray = matrix2Rotated.Data;
+		size_t matrix2RotatedWidth = matrix2Rotated.Width;
+		for (size_t i = 0; i < matrix1->Height; ++i)
 		{
-			float sum = 0.0f;
-
-			for (size_t k = 0; k < matrix2->Height; ++k)
+			for (size_t j = 0; j < matrix1->Width; ++j)
 			{
-				for (size_t l = 0; l < matrix2->Width; ++l)
+				float sum = 0.0f;
+
+				for (size_t k = 0; k < matrix2->Height; ++k)
 				{
-					float c = outputArray[(k + i) * outputArrayWidth + l + j];
-					float r = matrix2RotatedArray[k * matrix2RotatedWidth + l];
+					size_t index0 = (k + i) * outputArrayWidth + j;
+					size_t index1 = k * matrix2RotatedWidth;
 
-					sum += c * r;
+					for (size_t l = 0; l < matrix2->Width; ++l)
+					{
+						float c = outputArray[index0 + l];
+						float r = matrix2RotatedArray[index1 + l];
+
+						sum += c * r;
+					}
 				}
-			}
 
-			MatrixFloat_Set(&output, i, j, sum);
+				MatrixFloat_Set(&output, i, j, sum);
+			}
 		}
 	}
 #endif
