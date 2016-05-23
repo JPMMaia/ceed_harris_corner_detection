@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "Vector.h"
 #include <float.h>
+#include <string.h>
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
@@ -38,7 +39,7 @@ MatrixFloat ConvolutionSame(const MatrixFloat* vector1, const MatrixFloat* vecto
 	for (size_t k = 1; k <= output.Width; ++k)
 	{
 		float sum = 0.0f;
-		
+
 		size_t limit = min((int)k, (int)vector1->Width);
 		for (size_t j = max(1, (int)k + 1 - (int)vector2->Width); j <= limit; ++j)
 		{
@@ -63,30 +64,37 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 	MatrixFloat matrixC;
 	{
-		// Initialize all elements to 0:
-		// 1. Try memset
-		// 2. Try loop coalescing
+		// Reserve memory and initialize width and height:
 		MatrixFloat_Initialize(&matrixC, matrix1->Width + left + right, matrix1->Height + top + bottom);
+
+		// Initialize all elements to 0:
+#ifdef _Version0
 		for (size_t i = 0; i < matrixC.Height; ++i)
-		{
 			for (size_t j = 0; j < matrixC.Width; ++j)
-			{
 				MatrixFloat_Set(&matrixC, i, j, 0.0f);
-			}
-		}
+#endif
+#ifdef _Version1
+		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
+#endif
+#ifdef _Version2
+		// TODO try loop coalescing
+#endif
 
 		for (size_t i = 1 + top; i <= matrix1->Height + top; ++i)
 		{
 			for (size_t j = 1 + left; j <= matrix1->Width + left; ++j)
 			{
-				float value = MatrixFloat_Get(matrix1,(int) i - (int) top - 1, (int) j - (int) left - 1);
-				MatrixFloat_Set(&matrixC, (int) i - 1, (int) j - 1, value);
+				float value = MatrixFloat_Get(matrix1, (int)i - (int)top - 1, (int)j - (int)left - 1);
+				MatrixFloat_Set(&matrixC, (int)i - 1, (int)j - 1, value);
 			}
 		}
 	}
 
+	// Allocate memory and initialize width and height of matrix:
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix1->Width, matrix1->Height);
+	
+#ifdef _Version0
 	// i -> [1, rowsA]
 	for (size_t i = 1; i <= matrix1->Height; ++i)
 	{
@@ -112,7 +120,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 					// k - 1 -> [0, rowsB - 1]
 					// l - 1 -> [0, columnsB - 1]
 
-					float c  = MatrixFloat_Get(&matrixC, (int)k + (int)q - 1, (int)l + (int)w - 1);
+					float c = MatrixFloat_Get(&matrixC, (int)k + (int)q - 1, (int)l + (int)w - 1);
 					float r = MatrixFloat_Get(&matrix2Rotated, (int)k - 1, (int)l - 1);
 
 					sum += c * r;
@@ -122,6 +130,33 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 			MatrixFloat_Set(&output, i - 1, j - 1, sum);
 		}
 	}
+#endif
+#ifdef _Version4
+	float* outputArray = matrixC.Data;
+	size_t outputArrayWidth = matrixC.Width;
+	float* matrix2RotatedArray = matrix2Rotated.Data;
+	size_t matrix2RotatedWidth = matrix2Rotated.Width;
+	for (size_t i = 0; i < matrix1->Height; ++i)
+	{
+		for (size_t j = 0; j < matrix1->Width; ++j)
+		{
+			float sum = 0.0f;
+
+			for (size_t k = 0; k < matrix2->Height; ++k)
+			{
+				for (size_t l = 0; l < matrix2->Width; ++l)
+				{
+					float c = outputArray[(k + i) * outputArrayWidth + l + j];
+					float r = matrix2RotatedArray[k * matrix2RotatedWidth + l];
+
+					sum += c * r;
+				}
+			}
+
+			MatrixFloat_Set(&output, i, j, sum);
+		}
+	}
+#endif
 
 	return output;
 }
@@ -175,7 +210,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 {
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
-	
+
 	Vector blockVector;
 
 	Vector_Initialize(&blockVector, domain->Width * domain->Height);
@@ -199,7 +234,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 					{
 						float value;
 						{
-							if(bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
+							if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
 								value = 0.0f;
 							else
 								value = MatrixFloat_Get(matrix, bi, bj);
