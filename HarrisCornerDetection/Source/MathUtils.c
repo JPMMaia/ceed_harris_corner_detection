@@ -6,6 +6,9 @@
 #include <float.h>
 #include <string.h>
 
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
 	MatrixFloat output;
@@ -74,7 +77,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 				MatrixFloat_Set(&matrixC, i, j, 0.0f);
 #endif
 #ifdef _Version001
-		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
+		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));	
 #endif
 #ifdef _Version002
 		// TODO try loop coalescing

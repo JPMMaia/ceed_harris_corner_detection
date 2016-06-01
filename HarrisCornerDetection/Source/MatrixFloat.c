@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 void MatrixFloat_Initialize(MatrixFloat* image, size_t width, size_t height)
 {
 	image->Width = width;
@@ -114,7 +115,9 @@ void MatrixFloat_ExecuteElementByElement(MatrixFloat* destination, const MatrixF
 	{
 		for (size_t j = 0; j < destination->Width; ++j)
 		{
-			float result = process(MatrixFloat_Get(matrix1, i, j), MatrixFloat_Get(matrix2, i, j));
+			//float result = process(MatrixFloat_Get(matrix1, i, j), MatrixFloat_Get(matrix2, i, j));
+			float result = MatrixFloat_Get(matrix1, i, j) * MatrixFloat_Get(matrix2, i, j);
+			//printf("i = %d\n", i);
 			MatrixFloat_Set(destination, i, j, result);
 		}
 	}
