@@ -333,7 +333,7 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
 							continue;
 
-						float value = MatrixFloat_Get(matrix, bi, bj);
+						float value = matrix->Data[bi * matrix->Width + bj];
 						if (value > maximumValue)
 							maximumValue = value;
 					}

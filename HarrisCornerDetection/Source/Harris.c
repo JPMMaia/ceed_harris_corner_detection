@@ -1,5 +1,13 @@
 #include "Harris.h"
 #include "MathUtils.h"
+#include "Flags.h"
+
+static float RaiseToPower2(float value);
+static float Plus(float value1, float value2);
+static float Minus(float value1, float value2);
+static float Multiply(float value1, float value2);
+static float Divide(float value1, float value2);
+static float FindMaxima(float value1, float value2);
 
 MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 {
@@ -113,7 +121,36 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 					MatrixFloat_Initialize(&ones, size, size);
 					MatrixFloat_Fill(&ones, 1.0f);
 				}
+
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+
+				{
+					// Start clock:
+					start_time();
+
+ #endif
+
 				mx = OrderStatisticFilteringSpecialized(&cim, &ones);
+
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+
+					// Stop clock:
+					stop_time();
+
+					// Ticks elapsed:
+					CORE_TICKS ticksElapsed = get_core_ticks();
+					xil_printf("==== Number of ticks elapsed for OrderStatisticFilteringSpecialized: %d\n", ticksElapsed);
+
+					// Time elapsed:
+					timerepr timeElapsed = time_in_secs(ticksElapsed);
+					printf("Elapsed time (s): %f\n", (float) timeElapsed);
+					timeElapsed = time_in_msecs(ticksElapsed);
+					printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+					timeElapsed = time_in_usecs(ticksElapsed);
+					printf("Elapsed time (us): %f\n", (float) timeElapsed);
+				}
+#endif
+
 				MatrixFloat_Shutdown(&ones);
 			}
 

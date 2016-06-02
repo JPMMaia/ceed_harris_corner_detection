@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static void Vector_OrderQuicksortAuxiliary(Vector* vector, size_t low, size_t high);
+static size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high);
+
 void Vector_Initialize(Vector* vector, size_t size)
 {
 	vector->Data = (float*)malloc(size * sizeof(float));
@@ -115,7 +118,7 @@ size_t Vector_QuicksortPartition(Vector* vector, size_t low, size_t high)
 
 void Vector_Print(Vector* vector)
 {
-	printf("Vector; Size: %llu; ReservedSize: %llu; Elements:", vector->Size, vector->ReservedSize);
+	printf("Vector; Size: %llu; ReservedSize: %llu; Elements:", (long long unsigned int)vector->Size, (long long unsigned int)vector->ReservedSize);
 	for (size_t i = 0; i < vector->Size; ++i)
 		printf(" %f;", vector->Data[i]);
 	printf("\n");
