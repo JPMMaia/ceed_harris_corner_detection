@@ -1,10 +1,13 @@
 #include "MathUtils.h"
+#include "Vector.h"
 
 #include <math.h>
 #include <stdlib.h>
-#include "Vector.h"
 #include <float.h>
 #include <string.h>
+
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+#define min(a,b) (((a) < (b)) ? (a) : (b))
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
@@ -181,8 +184,10 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 #endif
 #ifdef _Version021
 	{
-		float* outputArray = matrixC.Data;
-		size_t outputArrayWidth = matrixC.Width;
+		float* outputArray = output.Data;
+		size_t outputArrayWidth = output.Width;
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
 		float* matrix2RotatedArray = matrix2Rotated.Data;
 		size_t matrix2RotatedWidth = matrix2Rotated.Width;
 		for (size_t i = 0; i < matrix1->Height; ++i)
@@ -193,19 +198,19 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 				for (size_t k = 0; k < matrix2->Height; ++k)
 				{
-					size_t index0 = (k + i) * outputArrayWidth + j;
+					size_t index0 = (k + i) * matrixCWidth + j;
 					size_t index1 = k * matrix2RotatedWidth;
 
 					for (size_t l = 0; l < matrix2->Width; ++l)
 					{
-						float c = outputArray[index0 + l];
+						float c = matrixCArray[index0 + l];
 						float r = matrix2RotatedArray[index1 + l];
 
 						sum += c * r;
 					}
 				}
 
-				MatrixFloat_Set(&output, i, j, sum);
+				outputArray[i * outputArrayWidth + j] = sum;
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 #include "FileStream.h"
 
-#include <cassert>
+#include <assert.h>
 #include <stdlib.h>
 
 void FileStream_Open(FileStream* fileStream, const wchar_t* filenameW, const char* mode)

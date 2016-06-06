@@ -103,6 +103,8 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 				}
 
 				MatrixFloat_ExecuteElementByElement(&cim, &cim, &denominator, Divide);
+				
+				MatrixFloat_Shutdown(&denominator);
 			}
 
 			MatrixFloat mx;
