@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 void MatrixFloat_Initialize(MatrixFloat* image, size_t width, size_t height)
 {
 	image->Width = width;
@@ -19,15 +20,6 @@ void MatrixFloat_Shutdown(MatrixFloat* image)
 
 	image->Height = 0;
 	image->Width = 0;
-}
-
-float MatrixFloat_Get(const MatrixFloat* image, size_t i, size_t j)
-{
-#ifdef _DEBUG
-	assert(i >= 0 && i < image->Height && j >= 0 && j < image->Width);
-#endif
-
-	return image->Data[i * image->Width + j];
 }
 
 void MatrixFloat_Set(const MatrixFloat* image, size_t i, size_t j, float value)
@@ -114,7 +106,7 @@ void MatrixFloat_ExecuteElementByElement(MatrixFloat* destination, const MatrixF
 	{
 		for (size_t j = 0; j < destination->Width; ++j)
 		{
-			float result = process(MatrixFloat_Get(matrix1, i, j), MatrixFloat_Get(matrix2, i, j));
+			float result = process(matrix1->Data[i * matrix1->Width + j], matrix2->Data[i * matrix1->Width + j]);
 			MatrixFloat_Set(destination, i, j, result);
 		}
 	}

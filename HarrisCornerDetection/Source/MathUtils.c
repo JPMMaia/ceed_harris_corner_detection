@@ -77,7 +77,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 				MatrixFloat_Set(&matrixC, i, j, 0.0f);
 #endif
 #ifdef _Version001
-		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
+		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));	
 #endif
 #ifdef _Version002
 		// TODO try loop coalescing
@@ -335,7 +335,7 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
 							continue;
 
-						float value = MatrixFloat_Get(matrix, bi, bj);
+						float value = matrix->Data[bi * matrix->Width + bj];
 						if (value > maximumValue)
 							maximumValue = value;
 					}

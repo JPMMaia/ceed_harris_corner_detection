@@ -30,16 +30,16 @@ void FileStream_SkipUntil(const FileStream* fileStream, uint8_t byte)
 void FileStream_ReadUInt8(const FileStream* fileStream, uint8_t* element)
 {
 	uint32_t temp;
-	fscanf(fileStream->Stream, "%d", &temp);
+	fscanf(fileStream->Stream, "%d", (int*)&temp);
 	*element = (uint8_t) temp;
 }
 void FileStream_ReadInt32(const FileStream* fileStream, int32_t* element)
 {
-	fscanf(fileStream->Stream, "%d", element);
+	fscanf(fileStream->Stream, "%d", (int*)element);
 }
 void FileStream_ReadUInt32(const FileStream* fileStream, uint32_t* element)
 {
-	fscanf(fileStream->Stream, "%d", element);
+	fscanf(fileStream->Stream, "%d", (int*)element);
 }
 void FileStream_ReadFloat(const FileStream* fileStream, float* element)
 {
