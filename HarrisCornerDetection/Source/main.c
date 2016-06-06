@@ -16,11 +16,11 @@ unsigned long long c_countValue = 0;
 int main()
 {
 	{
-		xil_printf("Begin\n");
+		printf("Begin\n");
 
 		MatrixFloat inputImage;
 		MatrixFloat_Initialize(&inputImage, COLUMNS, ROWS);
-		xil_printf("Initialized\n");
+		printf("Initialized\n");
 
 
 #ifdef CLOCK_GLOBAL
@@ -40,7 +40,7 @@ int main()
 
 		// Ticks elapsed:
 		CORE_TICKS ticksElapsed = get_core_ticks();
-        xil_printf("==== Number of ticks elapsed for Harris: %d\n", ticksElapsed);
+		printf("==== Number of ticks elapsed for Harris: %d\n", ticksElapsed);
 
         // Time elapsed:
         timerepr timeElapsed = time_in_secs(ticksElapsed);
@@ -55,7 +55,7 @@ int main()
         MatrixFloat_Shutdown(&outputImage);
 		MatrixFloat_Shutdown(&inputImage);
 
-		xil_printf("End\n");
+		printf("End\n");
 	}
 
 	return 0;

@@ -1,13 +1,19 @@
-#ifndef SRC_FLAGS_H_
-#define SRC_FLAGS_H_
+#pragma once
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <xil_io.h>
-
 #include "timers.h"
 
+#ifdef _ZEDBOARD
+
+// Defines:
 #define CLOCK_GLOBAL
 //#define CLOCK_ORDER_STATISTIC_FILTERING
 
+// Includes:
+#include <xil_io.h>
+
 #endif
+
+// Optimization defines:
+//#define _OPTIMIZATION_GET

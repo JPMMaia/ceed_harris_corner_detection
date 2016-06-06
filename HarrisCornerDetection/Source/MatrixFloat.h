@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "flags.h"
 
 typedef struct _MatrixFloat
 {
@@ -18,15 +19,12 @@ extern "C"
 	void MatrixFloat_Initialize(MatrixFloat* matrix, size_t width, size_t height);
 	void MatrixFloat_Shutdown(MatrixFloat* matrix);
 
+#ifdef _OPTIMIZATION_GET
 	#define MatrixFloat_Get(image, i, j) image->Data[i * image->Width + j]
-	/*extern inline float MatrixFloat_Get(const MatrixFloat* matrix, size_t i, size_t j)
-	{
-		#ifdef _DEBUG
-			assert(i >= 0 && i < matrix->Height && j >= 0 && j < matrix->Width);
-		#endif
+#else
+	float MatrixFloat_Get(const MatrixFloat* matrix, size_t i, size_t j);
+#endif
 
-		return matrix->Data[i * matrix->Width + j];
-	}*/
 
 	void MatrixFloat_Set(const MatrixFloat* matrix, size_t i, size_t j, float value);
 	void MatrixFloat_Load(MatrixFloat* destination, const wchar_t* filename);

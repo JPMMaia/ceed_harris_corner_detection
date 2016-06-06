@@ -32,10 +32,7 @@
     <ClCompile Include="Source\Profiler.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="Source\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,6 +53,9 @@
       <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\Profiler.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\flags.h">
       <Filter>Application</Filter>
     </ClInclude>
   </ItemGroup>

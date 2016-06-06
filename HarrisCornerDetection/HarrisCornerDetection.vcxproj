@@ -139,7 +139,7 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_Version0;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <CompileAs>Default</CompileAs>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -156,10 +156,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
     <ClCompile Include="Source\FileStream.c" />
     <ClCompile Include="Source\Harris.c" />
-    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\main.c" />
     <ClCompile Include="Source\MatrixFloat.c" />
     <ClCompile Include="Source\MathUtils.c" />
     <ClCompile Include="Source\Profiler.cpp" />
@@ -167,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\FileStream.h" />
+    <ClInclude Include="Source\flags.h" />
     <ClInclude Include="Source\Harris.h" />
     <ClInclude Include="Source\MatrixFloat.h" />
     <ClInclude Include="Source\MathUtils.h" />
