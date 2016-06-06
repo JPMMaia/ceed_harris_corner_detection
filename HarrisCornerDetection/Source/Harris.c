@@ -111,8 +111,6 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 				}
 
 				MatrixFloat_ExecuteElementByElement(&cim, &cim, &denominator, Divide);
-				
-				MatrixFloat_Shutdown(&denominator);
 			}
 
 			MatrixFloat mx;
@@ -124,33 +122,10 @@ MatrixFloat Harris(const MatrixFloat* input, size_t radius)
 					MatrixFloat_Fill(&ones, 1.0f);
 				}
 
-#ifdef CLOCK_ORDER_STATISTIC_FILTERING
-
-				{
-					// Start clock:
-					start_time();
-
- #endif
-
+#if defined(_OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED)
 				mx = OrderStatisticFilteringSpecialized(&cim, &ones);
-
-#ifdef CLOCK_ORDER_STATISTIC_FILTERING
-
-					// Stop clock:
-					stop_time();
-
-					// Ticks elapsed:
-					CORE_TICKS ticksElapsed = get_core_ticks();
-					xil_printf("==== Number of ticks elapsed for OrderStatisticFilteringSpecialized: %d\n", ticksElapsed);
-
-					// Time elapsed:
-					timerepr timeElapsed = time_in_secs(ticksElapsed);
-					printf("Elapsed time (s): %f\n", (float) timeElapsed);
-					timeElapsed = time_in_msecs(ticksElapsed);
-					printf("Elapsed time (ms): %f\n", (float) timeElapsed);
-					timeElapsed = time_in_usecs(ticksElapsed);
-					printf("Elapsed time (us): %f\n", (float) timeElapsed);
-				}
+#else
+				mx = OrderStatisticFiltering(&cim, size*size, &ones);
 #endif
 
 				MatrixFloat_Shutdown(&ones);

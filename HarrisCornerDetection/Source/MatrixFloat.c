@@ -22,6 +22,17 @@ void MatrixFloat_Shutdown(MatrixFloat* image)
 	image->Width = 0;
 }
 
+#ifndef _OPTIMIZATION_GET
+float MatrixFloat_Get(const MatrixFloat* matrix, size_t i, size_t j)
+{
+#ifdef _DEBUG
+	assert(i >= 0 && i < matrix->Height && j >= 0 && j < matrix->Width);
+#endif
+
+	return matrix->Data[i * matrix->Width + j];
+}
+#endif
+
 void MatrixFloat_Set(const MatrixFloat* image, size_t i, size_t j, float value)
 {
 #ifdef _DEBUG

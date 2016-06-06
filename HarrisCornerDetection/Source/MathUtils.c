@@ -1,13 +1,21 @@
 #include "MathUtils.h"
-#include "Vector.h"
 
 #include <math.h>
 #include <stdlib.h>
+#include "Vector.h"
 #include <float.h>
 #include <string.h>
 
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #define min(a,b) (((a) < (b)) ? (a) : (b))
+
+#ifdef CLOCK_CONVOLUTION2D
+CORE_TICKS c_convolution2DTotalTicksElapsed = 0;
+#endif
+
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+CORE_TICKS c_orderStatisticsTotalTicksElapsed = 0;
+#endif
 
 MatrixFloat Rotate180(const MatrixFloat* matrix)
 {
@@ -57,6 +65,11 @@ MatrixFloat ConvolutionSame(const MatrixFloat* vector1, const MatrixFloat* vecto
 
 MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* matrix2)
 {
+#ifdef CLOCK_CONVOLUTION2D
+	// Start clock:
+	start_time();
+#endif
+
 	MatrixFloat matrix2Rotated = Rotate180(matrix2);
 	size_t centerX = (size_t)floorf(((float)matrix2Rotated.Width + 1.0f) / 2.0f);
 	size_t centerY = (size_t)floorf(((float)matrix2Rotated.Height + 1.0f) / 2.0f);
@@ -71,29 +84,17 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 		MatrixFloat_Initialize(&matrixC, matrix1->Width + left + right, matrix1->Height + top + bottom);
 
 		// Initialize all elements to 0:
-#ifdef _Version0
+#if defined(_OPTIMIZATION_CONVOLUTION_000)
+		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
+#elif defined(_OPTIMIZATION_CONVOLUTION_001)
+		// TODO try loop coalescing
+#else
 		for (size_t i = 0; i < matrixC.Height; ++i)
 			for (size_t j = 0; j < matrixC.Width; ++j)
 				MatrixFloat_Set(&matrixC, i, j, 0.0f);
 #endif
-#ifdef _Version001
-		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));	
-#endif
-#ifdef _Version002
-		// TODO try loop coalescing
-#endif
 
-#ifdef _Version0
-		for (size_t i = 1 + top; i <= matrix1->Height + top; ++i)
-		{
-			for (size_t j = 1 + left; j <= matrix1->Width + left; ++j)
-			{
-				float value = MatrixFloat_Get(matrix1, (int)i - (int)top - 1, (int)j - (int)left - 1);
-				MatrixFloat_Set(&matrixC, (int)i - 1, (int)j - 1, value);
-			}
-		}
-#endif
-#ifdef _Version011
+#if defined(_OPTIMIZATION_CONVOLUTION_010)
 		// Loop normalization:
 		float* matrixCArray = matrixC.Data;
 		size_t matrixCWidth = matrixC.Width;
@@ -108,8 +109,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 				matrixCArray[index0 + j] = matrix1Array[index1 + j];
 			}
 		}
-#endif
-#ifdef _Version012
+#elif defined(_OPTIMIZATION_CONVOLUTION_011)
 		// Loop coalescing:
 		float* matrixCArray = matrixC.Data;
 		size_t matrixCWidth = matrixC.Width;
@@ -125,8 +125,8 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 			size_t index1 = i * matrix1Width;
 			matrixCArray[index0 + j] = matrix1Array[index1 + j];
 		}
-#endif
-#ifdef _Version013
+
+#elif defined(_OPTIMIZATION_CONVOLUTION_012)
 		float* matrixCArray = matrixC.Data;
 		size_t matrixCWidth = matrixC.Width;
 		float* matrix1Array = matrix1->Data;
@@ -138,6 +138,15 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 			size_t index1 = i * matrix1Width;
 			memcpy(&matrixCArray[index0], &matrix1Array[index1], matrix1Width * sizeof(float));
 		}
+#else
+		for (size_t i = 1 + top; i <= matrix1->Height + top; ++i)
+		{
+			for (size_t j = 1 + left; j <= matrix1->Width + left; ++j)
+			{
+				float value = MatrixFloat_Get(matrix1, (int)i - (int)top - 1, (int)j - (int)left - 1);
+				MatrixFloat_Set(&matrixC, (int)i - 1, (int)j - 1, value);
+			}
+		}
 #endif
 	}
 
@@ -145,7 +154,71 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix1->Width, matrix1->Height);
 
-#ifdef _Version0
+#if defined(_OPTIMIZATION_CONVOLUTION_020)
+	{
+		float* outputArray = matrixC.Data;
+		size_t outputArrayWidth = matrixC.Width;
+		float* matrix2RotatedArray = matrix2Rotated.Data;
+		size_t matrix2RotatedWidth = matrix2Rotated.Width;
+		for (size_t i = 0; i < matrix1->Height; ++i)
+		{
+			for (size_t j = 0; j < matrix1->Width; ++j)
+			{
+				float sum = 0.0f;
+
+				for (size_t k = 0; k < matrix2->Height; ++k)
+				{
+					size_t index0 = (k + i) * outputArrayWidth + j;
+					size_t index1 = k * matrix2RotatedWidth;
+
+					for (size_t l = 0; l < matrix2->Width; ++l)
+					{
+						float c = outputArray[index0 + l];
+						float r = matrix2RotatedArray[index1 + l];
+
+						sum += c * r;
+					}
+				}
+
+				MatrixFloat_Set(&output, i, j, sum);
+			}
+		}
+	}
+#elif defined(_OPTIMIZATION_CONVOLUTION_021)
+	{
+			float* outputArray = output.Data;
+			size_t outputArrayWidth = output.Width;
+			float* matrixCArray = matrixC.Data;
+			size_t matrixCWidth = matrixC.Width;
+			float* matrix2RotatedArray = matrix2Rotated.Data;
+			size_t matrix2RotatedWidth = matrix2Rotated.Width;
+			for (size_t i = 0; i < matrix1->Height; ++i)
+			{
+				for (size_t j = 0; j < matrix1->Width; ++j)
+				{
+					float sum = 0.0f;
+
+					for (size_t k = 0; k < matrix2->Height; ++k)
+					{
+						size_t index0 = (k + i) * matrixCWidth + j;
+						size_t index1 = k * matrix2RotatedWidth;
+
+						for (size_t l = 0; l < matrix2->Width; ++l)
+						{
+							float c = matrixCArray[index0 + l];
+							float r = matrix2RotatedArray[index1 + l];
+
+							sum += c * r;
+						}
+					}
+
+					outputArray[i * outputArrayWidth + j] = sum;
+				}
+			}
+		}
+#else
+	MatrixFloat* pMatrixC = &matrixC;
+	MatrixFloat* pMatrix2Rotated = &matrix2Rotated;
 	// i -> [1, rowsA]
 	for (size_t i = 1; i <= matrix1->Height; ++i)
 	{
@@ -171,49 +244,37 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 					// k - 1 -> [0, rowsB - 1]
 					// l - 1 -> [0, columnsB - 1]
 
-					float c = MatrixFloat_Get(&matrixC, (int)k + (int)q - 1, (int)l + (int)w - 1);
-					float r = MatrixFloat_Get(&matrix2Rotated, (int)k - 1, (int)l - 1);
+					float c = MatrixFloat_Get(pMatrixC, (int)k + (int)q - 1, (int)l + (int)w - 1);
+					float r = MatrixFloat_Get(pMatrix2Rotated, (int)k - 1, (int)l - 1);
 
 					sum += c * r;
 				}
 			}
 
 			MatrixFloat_Set(&output, i - 1, j - 1, sum);
-}
-	}
-#endif
-#ifdef _Version021
-	{
-		float* outputArray = output.Data;
-		size_t outputArrayWidth = output.Width;
-		float* matrixCArray = matrixC.Data;
-		size_t matrixCWidth = matrixC.Width;
-		float* matrix2RotatedArray = matrix2Rotated.Data;
-		size_t matrix2RotatedWidth = matrix2Rotated.Width;
-		for (size_t i = 0; i < matrix1->Height; ++i)
-		{
-			for (size_t j = 0; j < matrix1->Width; ++j)
-			{
-				float sum = 0.0f;
-
-				for (size_t k = 0; k < matrix2->Height; ++k)
-				{
-					size_t index0 = (k + i) * matrixCWidth + j;
-					size_t index1 = k * matrix2RotatedWidth;
-
-					for (size_t l = 0; l < matrix2->Width; ++l)
-					{
-						float c = matrixCArray[index0 + l];
-						float r = matrix2RotatedArray[index1 + l];
-
-						sum += c * r;
-					}
-				}
-
-				outputArray[i * outputArrayWidth + j] = sum;
-			}
 		}
 	}
+#endif
+
+#ifdef CLOCK_CONVOLUTION2D
+	// Stop clock:
+	stop_time();
+
+	// Ticks elapsed:
+	CORE_TICKS ticksElapsed = get_core_ticks();
+	printf("==== Number of ticks elapsed for Convolution2D: %d\n", ticksElapsed);
+	c_convolution2DTotalTicksElapsed += ticksElapsed;
+	printf("==== Number of total ticks elapsed for Convolution2D: %d\n", c_convolution2DTotalTicksElapsed);
+
+	// Time elapsed:
+	timerepr timeElapsed = time_in_secs(ticksElapsed);
+	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_msecs(ticksElapsed);
+	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(ticksElapsed);
+	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(c_convolution2DTotalTicksElapsed);
+	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
 #endif
 
 	return output;
@@ -264,8 +325,80 @@ MatrixFloat CreateGaussianFilter()
 	return output;
 }
 
+#if defined(_OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED)
+MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat* domain)
+{
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+
+	// Start clock:
+	start_time();
+
+ #endif
+
+	MatrixFloat output;
+	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
+
+	for (size_t i = 0; i < matrix->Height; ++i)
+	{
+		for (size_t j = 0; j < matrix->Width; ++j)
+		{
+			// Find maximum value:
+			float maximumValue = FLT_MIN;
+			{
+				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
+				{
+					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
+					{
+						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
+							continue;
+
+						float value = matrix->Data[bi * matrix->Width + bj];
+						if (value > maximumValue)
+							maximumValue = value;
+					}
+				}
+			}
+
+			// Set matrix element:
+			MatrixFloat_Set(&output, i, j, maximumValue);
+		}
+	}
+
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+
+	// Stop clock:
+	stop_time();
+
+	// Ticks elapsed:
+	CORE_TICKS ticksElapsed = get_core_ticks();
+	printf("==== Number of ticks elapsed for OrderStatisticFilteringSpecialized: %d\n", ticksElapsed);
+	c_orderStatisticsTotalTicksElapsed += ticksElapsed;
+	printf("==== Number of total ticks elapsed for OrderStatisticFilteringSpecialized: %d\n", c_orderStatisticsTotalTicksElapsed);
+
+	// Time elapsed:
+	timerepr timeElapsed = time_in_secs(ticksElapsed);
+	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_msecs(ticksElapsed);
+	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(ticksElapsed);
+	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(c_orderStatisticsTotalTicksElapsed);
+	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
+
+#endif
+
+	return output;
+}
+#else
 MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain)
 {
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
+
+	// Start clock:
+	start_time();
+
+ #endif
+
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
 
@@ -313,39 +446,29 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 
 	Vector_Shutdown(&blockVector);
 
-	return output;
-}
+#ifdef CLOCK_ORDER_STATISTIC_FILTERING
 
-MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat* domain)
-{
-	MatrixFloat output;
-	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
+	// Stop clock:
+	stop_time();
 
-	for (size_t i = 0; i < matrix->Height; ++i)
-	{
-		for (size_t j = 0; j < matrix->Width; ++j)
-		{
-			// Find maximum value:
-			float maximumValue = FLT_MIN;
-			{
-				for (int32_t bi = (int32_t)i - ((int32_t)domain->Height - 1) / 2; bi <= (int32_t)i + (int32_t)domain->Height / 2; ++bi)
-				{
-					for (int32_t bj = (int32_t)j - ((int32_t)domain->Width - 1) / 2; bj <= (int32_t)j + (int32_t)domain->Width / 2; ++bj)
-					{
-						if (bi < 0 || bi >= matrix->Height || bj < 0 || bj >= matrix->Width)
-							continue;
+	// Ticks elapsed:
+	CORE_TICKS ticksElapsed = get_core_ticks();
+	printf("==== Number of ticks elapsed for OrderStatisticFiltering: %d\n", ticksElapsed);
+	c_orderStatisticsTotalTicksElapsed += ticksElapsed;
+	printf("==== Number of total ticks elapsed for OrderStatisticFiltering: %d\n", c_orderStatisticsTotalTicksElapsed);
 
-						float value = matrix->Data[bi * matrix->Width + bj];
-						if (value > maximumValue)
-							maximumValue = value;
-					}
-				}
-			}
+	// Time elapsed:
+	timerepr timeElapsed = time_in_secs(ticksElapsed);
+	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_msecs(ticksElapsed);
+	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(ticksElapsed);
+	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	timeElapsed = time_in_usecs(c_orderStatisticsTotalTicksElapsed);
+	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
 
-			// Set matrix element:
-			MatrixFloat_Set(&output, i, j, maximumValue);
-		}
-	}
+#endif
 
 	return output;
 }
+#endif
