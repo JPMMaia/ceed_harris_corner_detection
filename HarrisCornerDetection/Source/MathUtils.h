@@ -18,6 +18,8 @@ extern "C"
 	MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain);
 #endif
 
+	float SumAndMultiply(const MatrixFloat* matrix1, const MatrixFloat* matrix2);
+
 #ifdef __cplusplus
 }
 #endif

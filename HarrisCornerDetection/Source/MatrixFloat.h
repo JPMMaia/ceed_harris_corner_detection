@@ -20,7 +20,7 @@ extern "C"
 	void MatrixFloat_Shutdown(MatrixFloat* matrix);
 
 #ifdef _OPTIMIZATION_GET
-	#define MatrixFloat_Get(image, i, j) image->Data[i * image->Width + j]
+	#define MatrixFloat_Get(image, i, j) (*(image)).Data[(i) * (*(image)).Width + (j)]
 #else
 	float MatrixFloat_Get(const MatrixFloat* matrix, size_t i, size_t j);
 #endif

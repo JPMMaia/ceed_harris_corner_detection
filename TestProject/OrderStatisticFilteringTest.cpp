@@ -31,9 +31,13 @@ namespace TestProject
 						{
 							MatrixFloat_Set(&onesMatrix, i, j, 1.0f);
 						}
-					}
+					}					
 
+#ifdef _OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED
+					actualMatrix = OrderStatisticFilteringSpecialized(&inputMatrix, &onesMatrix);
+#else
 					actualMatrix = OrderStatisticFiltering(&inputMatrix, order, &onesMatrix);
+#endif
 
 					MatrixFloat_Shutdown(&onesMatrix);
 				}
@@ -49,10 +53,12 @@ namespace TestProject
 			MatrixFloat_Shutdown(&expectedMatrix);
 		}
 
+#ifndef _OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED
 		TEST_METHOD(OrderStatisticFilteringMatrixATest)
 		{
 			TestOrderStatisticsFiltering(L"Resources/OrderStatisticFilteringMatrixAInput.txt", L"Resources/OrderStatisticFilteringMatrixAOutput.txt", 3, 2);
 		}
+#endif
 
 		TEST_METHOD(OrderStatisticFilteringMatrixBTest)
 		{

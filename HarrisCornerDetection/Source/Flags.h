@@ -9,7 +9,7 @@
 #ifdef _ZEDBOARD
 
 // === Defines ===
-#define CLOCK_GLOBAL
+//#define CLOCK_GLOBAL
 //#define CLOCK_ORDER_STATISTIC_FILTERING
 //#define CLOCK_CONVOLUTION2D
 
