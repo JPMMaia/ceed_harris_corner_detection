@@ -186,37 +186,52 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 	}
 #elif defined(_OPTIMIZATION_CONVOLUTION_021)
 	{
-			float* outputArray = output.Data;
-			size_t outputArrayWidth = output.Width;
-			float* matrixCArray = matrixC.Data;
-			size_t matrixCWidth = matrixC.Width;
-			float* matrix2RotatedArray = matrix2Rotated.Data;
-			size_t matrix2RotatedWidth = matrix2Rotated.Width;
-			for (size_t i = 0; i < matrix1->Height; ++i)
+		float* outputArray = output.Data;
+		size_t outputArrayWidth = output.Width;
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
+		float* matrix2RotatedArray = matrix2Rotated.Data;
+		size_t matrix2RotatedWidth = matrix2Rotated.Width;
+		for (size_t i = 0; i < matrix1->Height; ++i)
+		{
+			for (size_t j = 0; j < matrix1->Width; ++j)
 			{
-				for (size_t j = 0; j < matrix1->Width; ++j)
+				float sum = 0.0f;
+
+				for (size_t k = 0; k < matrix2->Height; ++k)
 				{
-					// TODO isolate function with restrict
-					float sum = 0.0f;
+					size_t index0 = (k + i) * matrixCWidth + j;
+					size_t index1 = k * matrix2RotatedWidth;
 
-					for (size_t k = 0; k < matrix2->Height; ++k)
+					for (size_t l = 0; l < matrix2->Width; ++l)
 					{
-						size_t index0 = (k + i) * matrixCWidth + j;
-						size_t index1 = k * matrix2RotatedWidth;
+						float c = matrixCArray[index0 + l];
+						float r = matrix2RotatedArray[index1 + l];
 
-						for (size_t l = 0; l < matrix2->Width; ++l)
-						{
-							float c = matrixCArray[index0 + l];
-							float r = matrix2RotatedArray[index1 + l];
-
-							sum += c * r;
-						}
+						sum += c * r;
 					}
-
-					outputArray[i * outputArrayWidth + j] = sum;
 				}
+
+				outputArray[i * outputArrayWidth + j] = sum;
 			}
 		}
+	}
+#elif defined(_OPTIMIZATION_CONVOLUTION_022)
+	{
+		float* outputArray = output.Data;
+		size_t outputArrayWidth = output.Width;
+		float* matrixCArray = matrixC.Data;
+		size_t matrixCWidth = matrixC.Width;
+		float* matrix2RotatedArray = matrix2Rotated.Data;
+		size_t matrix2RotatedWidth = matrix2Rotated.Width;
+		for (size_t i = 0; i < matrix1->Height; ++i)
+		{
+			for (size_t j = 0; j < matrix1->Width; ++j)
+			{
+				outputArray[i * outputArrayWidth + j] = Convolution2DSameAuxiliary(i, j, matrix2->Width, matrix2->Height, matrixCArray, matrixCWidth, matrix2RotatedArray, matrix2RotatedWidth);
+			}
+		}
+	}
 #else
 	MatrixFloat* pMatrixC = &matrixC;
 	MatrixFloat* pMatrix2Rotated = &matrix2Rotated;
@@ -254,7 +269,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 			MatrixFloat_Set(&output, i - 1, j - 1, sum);
 		}
-	}
+}
 #endif
 
 #ifdef CLOCK_CONVOLUTION2D
@@ -269,16 +284,36 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 	// Time elapsed:
 	timerepr timeElapsed = time_in_secs(ticksElapsed);
-	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	printf("Elapsed time (s): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_msecs(ticksElapsed);
-	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	printf("Elapsed time (ms): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(ticksElapsed);
-	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Elapsed time (us): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(c_convolution2DTotalTicksElapsed);
-	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Total elapsed time (us): %f\n", (float)timeElapsed);
 #endif
 
 	return output;
+}
+float Convolution2DSameAuxiliary(size_t i, size_t j, size_t width, size_t height, float* __restrict matrix1, size_t matrix1Width, float* __restrict matrix2, size_t matrix2Width)
+{
+	float sum = 0.0f;
+
+	for (size_t k = 0; k < height; ++k)
+	{
+		size_t index0 = (k + i) * matrix1Width + j;
+		size_t index1 = k * matrix2Width;
+
+		for (size_t l = 0; l < width; ++l)
+		{
+			float c = matrix1[index0 + l];
+			float r = matrix2[index1 + l];
+
+			sum += c * r;
+		}
+	}
+
+	return sum;
 }
 
 MatrixFloat CreateGaussianFilter()
@@ -334,7 +369,7 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 	// Start clock:
 	start_time();
 
- #endif
+#endif
 
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
@@ -378,13 +413,13 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 
 	// Time elapsed:
 	timerepr timeElapsed = time_in_secs(ticksElapsed);
-	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	printf("Elapsed time (s): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_msecs(ticksElapsed);
-	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	printf("Elapsed time (ms): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(ticksElapsed);
-	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Elapsed time (us): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(c_orderStatisticsTotalTicksElapsed);
-	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Total elapsed time (us): %f\n", (float)timeElapsed);
 
 #endif
 
@@ -398,7 +433,7 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 	// Start clock:
 	start_time();
 
- #endif
+#endif
 
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
@@ -460,13 +495,13 @@ MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFlo
 
 	// Time elapsed:
 	timerepr timeElapsed = time_in_secs(ticksElapsed);
-	printf("Elapsed time (s): %f\n", (float) timeElapsed);
+	printf("Elapsed time (s): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_msecs(ticksElapsed);
-	printf("Elapsed time (ms): %f\n", (float) timeElapsed);
+	printf("Elapsed time (ms): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(ticksElapsed);
-	printf("Elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Elapsed time (us): %f\n", (float)timeElapsed);
 	timeElapsed = time_in_usecs(c_orderStatisticsTotalTicksElapsed);
-	printf("Total elapsed time (us): %f\n", (float) timeElapsed);
+	printf("Total elapsed time (us): %f\n", (float)timeElapsed);
 
 #endif
 

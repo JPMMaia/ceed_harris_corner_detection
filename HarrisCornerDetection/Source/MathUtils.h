@@ -18,7 +18,7 @@ extern "C"
 	MatrixFloat OrderStatisticFiltering(MatrixFloat* matrix, size_t order, MatrixFloat* domain);
 #endif
 
-	float SumAndMultiply(const MatrixFloat* matrix1, const MatrixFloat* matrix2);
+	float Convolution2DSameAuxiliary(size_t i, size_t j, size_t width, size_t height, float* __restrict matrix1, size_t matrix1Width, float* __restrict matrix2, size_t matrix2Width);
 
 #ifdef __cplusplus
 }
