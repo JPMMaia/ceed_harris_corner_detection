@@ -144,8 +144,9 @@
       <CompileAs>Default</CompileAs>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <Optimization>MaxSpeedHighLevel</Optimization>
-      <EnableGapAnalysis>Extreme</EnableGapAnalysis>
-      <OptimizationDiagnosticLevel>Level5</OptimizationDiagnosticLevel>
+      <EnableGapAnalysis>Disable</EnableGapAnalysis>
+      <OptimizationDiagnosticLevel>Disable</OptimizationDiagnosticLevel>
+      <AdditionalOptions>/Qprofile-loops:all %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

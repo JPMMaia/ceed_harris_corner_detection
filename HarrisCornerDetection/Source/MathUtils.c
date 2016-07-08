@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include <float.h>
 #include <string.h>
+#include <float.h>
 
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #define min(a,b) (((a) < (b)) ? (a) : (b))
@@ -87,7 +88,22 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 #if defined(_OPTIMIZATION_CONVOLUTION_000)
 		memset(matrixC.Data, 0, matrixC.Width * matrixC.Height * sizeof(float));
 #elif defined(_OPTIMIZATION_CONVOLUTION_001)
-		// TODO try loop coalescing
+		// Inlining:
+		{
+			float* matrixCArray = matrixC.Data;
+			for (size_t i = 0; i < matrixC.Height; ++i)
+				for (size_t j = 0; j < matrixC.Width; ++j)
+					matrixCArray[i * matrixC.Width + j] = 0.0f;
+		}
+#elif defined(_OPTIMIZATION_CONVOLUTION_002)
+		{
+			float* matrixCArray = matrixC.Data;
+			// Loop coalescing
+			for (size_t t = 0; t < matrixC.Height * matrixC.Width; ++t)
+			{
+				matrixCArray[t] = 0.0f;
+			}
+		}
 #else
 		for (size_t i = 0; i < matrixC.Height; ++i)
 			for (size_t j = 0; j < matrixC.Width; ++j)
@@ -269,7 +285,7 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 
 			MatrixFloat_Set(&output, i - 1, j - 1, sum);
 		}
-}
+	}
 #endif
 
 #ifdef CLOCK_CONVOLUTION2D
@@ -374,6 +390,93 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
 
+#if defined(_OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED_000)
+	float* outputArray = output.Data;
+	size_t outputArrayWidth = output.Width;
+	float* matrixArray = matrix->Data;
+	const size_t matrixWidth = matrix->Width;
+	const size_t matrixHeight = matrix->Height;
+	const size_t domainWidth = domain->Width;
+	const size_t domainHeight = domain->Height;
+	const size_t halfWidth = domain->Width / 2;
+	const size_t halfHeight = domain->Height / 2;
+
+	for (size_t i = 0; i < matrixHeight; ++i)
+	{
+		int32_t iOffset = (int32_t)i - (int32_t)halfHeight;
+
+		for (size_t j = 0; j < matrixWidth; ++j)
+		{
+			int32_t jOffset = (int32_t)j - (int32_t)halfWidth;
+
+			// Find maximum value:
+			float maximumValue = FLT_MIN;
+			{
+				for (size_t bi = 0; bi < domainHeight; ++bi)
+				{
+					int32_t vi = iOffset + (int32_t)bi;
+					if (vi < 0 || vi >= matrixHeight)
+						continue;
+
+					for (size_t bj = 0; bj < domainWidth; ++bj)
+					{
+						int32_t vj = jOffset + (int32_t)bj;
+						if (vj < 0 || vj >= matrixWidth)
+							continue;
+
+						float value = matrixArray[vi * matrixWidth + vj];
+						maximumValue = value > maximumValue ? value : maximumValue;
+					}
+				}
+			}
+
+			// Set matrix element:
+			outputArray[i * outputArrayWidth + j] = maximumValue;
+		}
+	}
+#elif defined(_OPTIMIZATION_ORDER_STATISTIC_FILTERING_SPECIALIZED_001)
+	float* outputArray = output.Data;
+	size_t outputArrayWidth = output.Width;
+	float* matrixArray = matrix->Data;
+	const size_t matrixWidth = matrix->Width;
+	const size_t matrixHeight = matrix->Height;
+	const size_t domainWidth = domain->Width;
+	const size_t domainHeight = domain->Height;
+	const size_t halfWidth = domain->Width / 2;
+	const size_t halfHeight = domain->Height / 2;
+
+	for (size_t i = 0; i < matrixHeight; ++i)
+	{
+		int32_t iOffset = (int32_t)i - (int32_t)halfHeight;
+		size_t biBegin = iOffset < 0 ? 0 : iOffset;
+		size_t biEndTemp = iOffset + domainHeight;
+		size_t biEnd = biEndTemp >= matrixHeight ? matrixHeight : biEndTemp;
+
+		for (size_t j = 0; j < matrixWidth; ++j)
+		{
+			int32_t jOffset = (int32_t)j - (int32_t)halfWidth;
+			size_t bjBegin = jOffset < 0 ? 0 : jOffset;
+			size_t bjEndTemp = jOffset + domainWidth;
+			size_t bjEnd = bjEndTemp >= matrixWidth ? matrixWidth : bjEndTemp;
+
+			// Find maximum value:
+			float maximumValue = FLT_MIN;
+			{
+				for (size_t bi = biBegin; bi < biEnd; ++bi)
+				{
+					for (size_t bj = bjBegin; bj < bjEnd; ++bj)
+					{
+						float value = matrixArray[bi * matrixWidth + bj];
+						maximumValue = value > maximumValue ? value : maximumValue;
+					}
+				}
+			}
+
+			// Set matrix element:
+			outputArray[i * outputArrayWidth + j] = maximumValue;
+		}
+	}
+#else
 	for (size_t i = 0; i < matrix->Height; ++i)
 	{
 		for (size_t j = 0; j < matrix->Width; ++j)
@@ -399,6 +502,7 @@ MatrixFloat OrderStatisticFilteringSpecialized(MatrixFloat* matrix, MatrixFloat*
 			MatrixFloat_Set(&output, i, j, maximumValue);
 		}
 	}
+#endif
 
 #ifdef CLOCK_ORDER_STATISTIC_FILTERING
 

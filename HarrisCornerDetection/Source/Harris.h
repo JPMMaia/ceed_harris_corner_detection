@@ -6,7 +6,6 @@
 extern "C"
 {
 #endif
-
 		MatrixFloat Harris(const MatrixFloat* image, size_t radius);
 
 #ifdef __cplusplus
