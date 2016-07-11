@@ -23,6 +23,29 @@ MatrixFloat Rotate180(const MatrixFloat* matrix)
 	MatrixFloat output;
 	MatrixFloat_Initialize(&output, matrix->Width, matrix->Height);
 
+#if defined(_OPTIMIZATION_CONVOLUTION_030)
+	float* matrixData = matrix->Data;
+	size_t matrixWidth = matrix->Width;
+	size_t matrixHeight = matrix->Height;
+	for (size_t i = 0; i < matrixHeight; ++i)
+	{
+		for (size_t j = 0; j < matrixWidth; ++j)
+		{
+			output.Data[i * matrixWidth + j] = matrixData[((int)matrixHeight - 1 - (int)i) * matrixWidth + (int)matrixWidth - 1 - (int)j];
+		}
+	}
+#elif defined(_OPTIMIZATION_CONVOLUTION_031)
+	float* matrixData = matrix->Data;
+	size_t matrixWidth = matrix->Width;
+	size_t matrixHeight = matrix->Height;
+	for (size_t i = 0; i < matrixHeight; ++i)
+	{
+		for (size_t j = 0; j < matrixWidth; ++j)
+		{
+			output.Data[i * matrixWidth + j] = matrixData[((int)matrixHeight - 1 - (int)i) * matrixWidth + (int)matrixWidth - 1 - (int)j];
+		}
+	}
+#else
 	for (size_t i = 0; i < matrix->Height; ++i)
 	{
 		for (size_t j = 0; j < matrix->Width; ++j)
@@ -30,6 +53,7 @@ MatrixFloat Rotate180(const MatrixFloat* matrix)
 			MatrixFloat_Set(&output, i, j, MatrixFloat_Get(matrix, (int)matrix->Height - 1 - (int)i, (int)matrix->Width - 1 - (int)j));
 		}
 	}
+#endif
 
 	return output;
 }
@@ -98,8 +122,9 @@ MatrixFloat Convolution2DSame(const MatrixFloat* matrix1, const MatrixFloat* mat
 #elif defined(_OPTIMIZATION_CONVOLUTION_002)
 		{
 			float* matrixCArray = matrixC.Data;
+			size_t end = matrixC.Height * matrixC.Width;
 			// Loop coalescing
-			for (size_t t = 0; t < matrixC.Height * matrixC.Width; ++t)
+			for (size_t t = 0; t < end; ++t)
 			{
 				matrixCArray[t] = 0.0f;
 			}
