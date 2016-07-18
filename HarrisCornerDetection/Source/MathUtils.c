@@ -34,17 +34,6 @@ MatrixFloat Rotate180(const MatrixFloat* matrix)
 			output.Data[i * matrixWidth + j] = matrixData[((int)matrixHeight - 1 - (int)i) * matrixWidth + (int)matrixWidth - 1 - (int)j];
 		}
 	}
-#elif defined(_OPTIMIZATION_CONVOLUTION_031)
-	float* matrixData = matrix->Data;
-	size_t matrixWidth = matrix->Width;
-	size_t matrixHeight = matrix->Height;
-	for (size_t i = 0; i < matrixHeight; ++i)
-	{
-		for (size_t j = 0; j < matrixWidth; ++j)
-		{
-			output.Data[i * matrixWidth + j] = matrixData[((int)matrixHeight - 1 - (int)i) * matrixWidth + (int)matrixWidth - 1 - (int)j];
-		}
-	}
 #else
 	for (size_t i = 0; i < matrix->Height; ++i)
 	{
